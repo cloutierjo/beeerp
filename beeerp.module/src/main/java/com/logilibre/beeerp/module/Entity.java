@@ -69,7 +69,7 @@ public class Entity {
 	 * @return The data from the specified field
 	 */
 	public Object getData(String fieldName) {
-		return Fields.getField(fieldName).getData();
+		return null;//Fields.getField(fieldName).getData();
 	}
 
 	/**
@@ -78,6 +78,6 @@ public class Entity {
 	 * @param data the data to set
 	 */
 	public void setData(String fieldName, Object data) {
-		getFields().setData(fieldName, data);
+		//getFields().setData(fieldName, data);
 	}
 }
