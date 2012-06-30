@@ -1,5 +1,11 @@
 package com.logilibre.beeerp.module;
 
 public class Fields {
-	//TODO: to implement
+	private Field field;
+
+	public Field getField(String fieldName) {
+		return field;
+	}
+	
+	
 }

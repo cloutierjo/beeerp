@@ -5,7 +5,7 @@ package com.logilibre.beeerp.module;
  * @author r3lemaypa, r3lacasgu, Jonatan Cloutier
  */
 public class Entity {
-	protected final Fields fields;
+	private final Fields fields;
 
 	/**
 	 * Build an entity containing the specified fields.
@@ -69,7 +69,7 @@ public class Entity {
 	 * @return The data from the specified field
 	 */
 	public Object getData(String fieldName) {
-		return null;//Fields.getField(fieldName).getData();
+		return fields.getField(fieldName).getData();
 	}
 
 	/**
@@ -78,6 +78,6 @@ public class Entity {
 	 * @param data the data to set
 	 */
 	public void setData(String fieldName, Object data) {
-		//getFields().setData(fieldName, data);
+		fields.getField(fieldName).setData(data);
 	}
 }
