@@ -1,12 +1,15 @@
 package com.logilibre.beeerp.module;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -14,43 +17,48 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class EntityTest {
 
-	private Entity entity;
+	private static final int DATA_VALUE = 42;
+	private static final String TO_STRING_RETURN_VALUE = "thisData";
 
+	private Entity entity;
+	
 	@Mock
 	private Fields fields;
+	@Mock
+	private Field field;
 	
 	@Before
 	public void setUp() throws Exception {
+		when(fields.getField(anyString())).thenReturn(field);
 		entity = new Entity(fields);
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@Test
+	public final void constructorWork() {
+		assertNotNull(entity);
 	}
 
 	@Test
-	public final void testEntity() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public final void testGetFields() {
-		fail("Not yet implemented");
+	public final void getFieldsReturnTheOriginalFields() {
+		assertEquals(fields, entity.getFields());
 	}
 
 	@Test
 	public final void testToString() {
-		fail("Not yet implemented");
+		when(fields.toString()).thenReturn(TO_STRING_RETURN_VALUE);
+		assertEquals(TO_STRING_RETURN_VALUE, entity.toString());
 	}
 
 	@Test
 	public final void testGetData() {
-		fail("Not yet implemented");
+		when(field.getData()).thenReturn(DATA_VALUE);
+		assertEquals(DATA_VALUE, entity.getData(anyString()));
 	}
 
 	@Test
 	public final void testSetData() {
-		fail("Not yet implemented");
+		entity.setData(anyString(), DATA_VALUE);
+		verify(field).setData(DATA_VALUE);
 	}
 
 	@Test
