@@ -78,6 +78,10 @@ public class Entity {
 	 * @param data the data to set
 	 */
 	public void setData(String fieldName, Object data) {
-		fields.getField(fieldName).setData(data);
+			fields.getField(fieldName).setData(data);
+	}
+	
+	public Boolean isABug(){
+		return null;	//TODO: this is a find bug test
 	}
 }
