@@ -1,12 +1,10 @@
-package com.logilibre.beeerp.module;
+package net.jc.beeerp.module;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+import net.jc.beeerp.module.field.Field;
+import net.jc.beeerp.module.field.Fields;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -51,14 +49,14 @@ public class EntityTest {
 
 	@Test
 	public final void testGetData() {
-		when(field.getData()).thenReturn(DATA_VALUE);
+		when(fields.getData(anyString())).thenReturn(DATA_VALUE);
 		assertEquals(DATA_VALUE, entity.getData(anyString()));
 	}
 
 	@Test
 	public final void testSetData() {
-		entity.setData(anyString(), DATA_VALUE);
-		verify(field).setData(DATA_VALUE);
+		entity.setData("", DATA_VALUE);
+		verify(fields).setData(anyString(), eq(DATA_VALUE));
 	}
 
 	@Test
@@ -74,12 +72,6 @@ public class EntityTest {
 	@Test
 	public final void equalsReturnTrueWhenSecondIsSameInstance() {
 		assertTrue(entity.equals(entity));
-	}
-
-	@Test
-	public final void equalsReturnTrueWhenSecondIsSimilareButNotSameInstance() {
-		Entity secondEntity = new Entity(fields);
-		assertTrue(entity.equals(secondEntity));
 	}
 
 }
