@@ -1,14 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>beeerp.parentpom</artifactId>
-    <groupId>com.logilibre</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>beeerp.packaging.all</artifactId>
-  <packaging>pom</packaging>
-  <name>BeeErp Packaging - All</name>
-  <modules>
-  	<module>../beeerp.module.biling</module>
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>beeerp.parentpom</artifactId>
+		<groupId>com.logilibre</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>beeerp.packaging.all</artifactId>
+	<packaging>pom</packaging>
+	<name>BeeErp Packaging - All</name>
+	<modules>
+		<module>../beeerp.module.biling</module>
+		<module>../beeerp.module</module>
+		<module>../beeerp.module.timesheet</module>
+		<module>../beeerp.orm</module>
+		<module>../beeerp.parentpom</module>
+		<module>../beeerp.server</module>
+	</modules>
 </project>

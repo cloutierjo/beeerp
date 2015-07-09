@@ -15,26 +15,18 @@
 			<artifactId>beeerp.module</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>net.jcs</groupId>
+			<artifactId>jboildown</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<type>maven-plugin</type>
+		</dependency>
+		<dependency>
 			<groupId>org.jooq</groupId>
 			<artifactId>jooq</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.jooq</groupId>
 			<artifactId>jooq-meta</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jooq</groupId>
-			<artifactId>jooq-codegen</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.jcs</groupId>
-			<artifactId>jboildown</artifactId>
-			<version>0.1-SNAPSHOT</version>
-			<type>maven-plugin</type>
 		</dependency>
 	</dependencies>
 	<build>
