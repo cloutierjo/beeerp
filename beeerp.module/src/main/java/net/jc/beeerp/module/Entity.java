@@ -24,6 +24,10 @@ public class Entity {
 		this.fields = fields;
 	}
 
+	public Integer getId() {
+		throw new UnsupportedOperationException("the getId method must be reimplemented");
+	}
+
 	/**
 	 * Build an entity containing the fields based on the entity member.
 	 */
@@ -45,9 +49,9 @@ public class Entity {
 		}
 		return fields;
 	}
-	
+
 	private Field<?> newField(Class<?> fieldType, String fieldName)
- {
+	{
 		Field<?> field = null;
 
 		switch (fieldType.getCanonicalName()) {
@@ -55,32 +59,32 @@ public class Entity {
 		case "boolean":
 			field = new FieldBool(fieldName ,this);
 			break;
-		// case CURRENCY:
-		// field = new FieldCurrency(fieldName);
-		// break;
+			// case CURRENCY:
+			// field = new FieldCurrency(fieldName);
+			// break;
 		case "java.sql.Date":
 			field = new FieldDate(fieldName ,this);
-				break;
-		// case DATE_TIME:
-		// field = new FieldDateTime(fieldName);
-		// break;
+			break;
+			// case DATE_TIME:
+			// field = new FieldDateTime(fieldName);
+			// break;
 		case "java.lang.Double":
 		case "double":
 			field = new FieldDouble(fieldName ,this);
-				break;
+			break;
 		case "java.lang.Integer":
 		case "int":
-			field = new FieldInteger(fieldName ,this); 
+			field = new FieldInteger(fieldName ,this);
 			break;
-		// case STRING:
-		// field = new FieldString(fieldName);
-		// break;
-		// case TEXT:
-		// field = new FieldText(fieldName);
-		// break;
-		// case TIME:
-		// field = new FieldTime(fieldName);
-		// break;
+			// case STRING:
+			// field = new FieldString(fieldName);
+			// break;
+			// case TEXT:
+			// field = new FieldText(fieldName);
+			// break;
+			// case TIME:
+			// field = new FieldTime(fieldName);
+			// break;
 		}
 
 		return field;
@@ -113,7 +117,7 @@ public class Entity {
 	 * @return The data from the specified field in it's string format
 	 * @see net.jc.beeerp.module.field.Fields#getDataString(java.lang.String)
 	 */
-	 @Deprecated
+	@Deprecated
 	public String getDataString(String fieldName) {
 		return fields.getDataString(fieldName);
 	}
@@ -136,8 +140,8 @@ public class Entity {
 	 * @param fieldName The field name
 	 * @param data the data to set from it's string format
 	 * @see net.jc.beeerp.module.field.Fields#setDataString(java.lang.String, java.lang.String)
-	 */@Deprecated 
-	public void setDataString(String fieldName, String data) {
-		fields.setDataString(fieldName, data);
-	};
+	 */@Deprecated
+	 public void setDataString(String fieldName, String data) {
+		 fields.setDataString(fieldName, data);
+	 };
 }
