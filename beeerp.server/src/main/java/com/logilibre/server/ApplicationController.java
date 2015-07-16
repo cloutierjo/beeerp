@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +23,11 @@ import com.logilibre.orm.Orm;
 @Controller
 @RequestMapping("/")
 public class ApplicationController {
+	final Logger log = LoggerFactory.getLogger(ApplicationController.class);
 
 	@RequestMapping(value = "/timesheet/weekly_time/get/{id}", method = RequestMethod.GET)
 	public String get(@PathVariable Integer id, ModelMap model) {
+		log.debug("get '{}' entity", id);
 		Orm orm = new Orm();
 		WeeklyTime weeklyTime = orm.get(WEEKLY_TIME, WeeklyTime.class, id);
 
@@ -34,6 +38,7 @@ public class ApplicationController {
 
 	@RequestMapping(value = "/timesheet/weekly_time/add", method = RequestMethod.GET)
 	public String getadd(ModelMap model) {
+		log.debug("getadd default entity");
 		WeeklyTime weeklyTime = new WeeklyTime();
 		weeklyTime.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
 		weeklyTime.setTime(1.);
@@ -44,6 +49,7 @@ public class ApplicationController {
 
 	@RequestMapping(value = "/timesheet/weekly_time/add", method = RequestMethod.POST)
 	public String postadd(ModelMap model, @RequestParam Map<String, String> param) {
+		log.debug("postadd new entity");
 		WeeklyTime weeklyTime = new WeeklyTime();
 		weeklyTime.getFields().setDataString("date", param.get("date"));
 		weeklyTime.getFields().setDataString("time", param.get("time"));
@@ -58,11 +64,13 @@ public class ApplicationController {
 
 	@RequestMapping(value = "/timesheet/weekly_time/update/{id}", method = RequestMethod.GET)
 	public String getupdate(@PathVariable Integer id, ModelMap model) {
+		log.debug("getupdate '{}' entity", id);
 		return get(id, model);
 	}
 
 	@RequestMapping(value = "/timesheet/weekly_time/update/{id}", method = RequestMethod.POST)
 	public String postupdate(@PathVariable Integer id, ModelMap model, @RequestParam Map<String, String> param) {
+		log.debug("postupdate '{}' entity", id);
 		Orm orm = new Orm();
 		WeeklyTime weeklyTime = orm.get(WEEKLY_TIME, WeeklyTime.class, id);
 
@@ -72,17 +80,19 @@ public class ApplicationController {
 		orm.update(WEEKLY_TIME, weeklyTime);
 
 		model.addAttribute("value", weeklyTime);
-		System.out.println(param);
+		log.debug("postupdate data: {}", param);
 		return "index";
 	}
 
 	@RequestMapping(value = "/timesheet/weekly_time/delete/{id}", method = RequestMethod.GET)
 	public String getdelete(@PathVariable Integer id, ModelMap model) {
+		log.debug("getdelete '{}' entity", id);
 		return get(id, model);
 	}
 
 	@RequestMapping(value = "/timesheet/weekly_time/delete/{id}", method = RequestMethod.POST)
 	public String postdelete(@PathVariable Integer id, HttpServletResponse httpServletResponse) {
+		log.debug("postdelete '{}' entity", id);
 		Orm orm = new Orm();
 		orm.delete(WEEKLY_TIME, id);
 

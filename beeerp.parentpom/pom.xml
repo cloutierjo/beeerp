@@ -88,6 +88,15 @@
 			<scope>test</scope>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<name>BeeErp - Parent POM</name>
 	<dependencyManagement>
@@ -161,6 +170,16 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.7.12</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
