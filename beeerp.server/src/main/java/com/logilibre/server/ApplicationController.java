@@ -55,11 +55,11 @@ public class ApplicationController {
 		weeklyTime.getFields().setDataString("time", param.get("time"));
 
 		Orm orm = new Orm();
-		orm.add(WEEKLY_TIME, weeklyTime);
+		Integer newId = orm.add(WEEKLY_TIME, weeklyTime);
 
 		model.addAttribute("value", weeklyTime);
 		System.out.println(param);
-		return "index";
+		return "redirect:/timesheet/weekly_time/get/" + newId;
 	}
 
 	@RequestMapping(value = "/timesheet/weekly_time/update/{id}", method = RequestMethod.GET)
