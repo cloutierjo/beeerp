@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasicUIIT {
+	private static final String BASE_TEST_URL = "http://localhost:8080/beeerp.server";
 	private WebDriver driver;
 
 	@Before
@@ -26,7 +27,7 @@ public class BasicUIIT {
 
 	@Test
 	public void getInitialValue() throws Exception {
-		driver.get("http://localhost:8080/beeerp/timesheet/weekly_time/get/1");
+		driver.get(BASE_TEST_URL + "/timesheet/weekly_time/get/1");
 		waitPageLoad();
 		WebElement inputTime = driver.findElement(By.name("time"));
 		assertEquals("2.4", inputTime.getAttribute("value"));
@@ -34,7 +35,7 @@ public class BasicUIIT {
 
 	@Test
 	public void addAndDeleteValue() throws Exception {
-		driver.get("http://localhost:8080/beeerp/timesheet/weekly_time/add");
+		driver.get(BASE_TEST_URL + "/timesheet/weekly_time/add");
 		waitPageLoad();
 		WebElement inputTime = driver.findElement(By.name("time"));
 		inputTime.clear();
@@ -50,7 +51,7 @@ public class BasicUIIT {
 		String[] urlParts = currentUrl.split("/");
 		String newId = urlParts[urlParts.length - 1];
 
-		driver.get("http://localhost:8080/beeerp/timesheet/weekly_time/delete/" + newId);
+		driver.get(BASE_TEST_URL + "/timesheet/weekly_time/delete/" + newId);
 		waitPageLoad();
 		inputTime = driver.findElement(By.name("time"));
 		inputTime.submit();
