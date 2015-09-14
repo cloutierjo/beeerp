@@ -75,7 +75,7 @@
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 	</dependencies>
-
+	
 	<build>
 		<finalName>beeerp</finalName>
 		<plugins>
@@ -96,6 +96,8 @@
 				<version>2.18.1</version>
 				<executions>
 					<execution>
+						<id>integration-tests</id>
+						<phase>integration-test</phase>
 						<goals>
 							<goal>integration-test</goal>
 							<goal>verify</goal>
@@ -107,24 +109,41 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.11.v20150529</version>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<stopPort>8005</stopPort>
+					<stopKey>STOP</stopKey>
+					<webApp>
+						<contextPath>/beeerp.server</contextPath>
+					</webApp>
+				</configuration>
 				<executions>
 					<execution>
-						<id>tomcat-run</id>
-						<goals>
-							<goal>run-war-only</goal>
-						</goals>
+						<id>start-jetty</id>
 						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run-forked</goal>
+						</goals>
 						<configuration>
-							<port>8080</port>
-							<fork>true</fork>
+							<scanIntervalSeconds>0</scanIntervalSeconds>
+							<waitForChild>false</waitForChild>
+							<jvmArgs>${failsafeArgLine}</jvmArgs>
 						</configuration>
 					</execution>
 					<execution>
-						<id>tomcat-shutdown</id>
-						<goals>
-							<goal>shutdown</goal>
-						</goals>
+						<id>stop-jetty</id>
 						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+						<configuration>
+							<stopWait>20</stopWait>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
