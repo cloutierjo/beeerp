@@ -51,6 +51,18 @@ public class BasicUIIT {
 		String[] urlParts = currentUrl.split("/");
 		String newId = urlParts[urlParts.length - 1];
 
+		driver.get(BASE_TEST_URL + "/timesheet/weekly_time/update/" + newId);
+		waitPageLoad();
+		inputTime = driver.findElement(By.name("time"));
+		inputTime.clear();
+		inputTime.sendKeys("2.25");
+
+		inputTime.submit();
+		waitPageLoad();
+		inputTime = driver.findElement(By.name("time"));
+
+		assertEquals("2.25", inputTime.getAttribute("value"));
+
 		driver.get(BASE_TEST_URL + "/timesheet/weekly_time/delete/" + newId);
 		waitPageLoad();
 		inputTime = driver.findElement(By.name("time"));
