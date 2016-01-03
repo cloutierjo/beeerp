@@ -6,6 +6,7 @@
 	<artifactId>beeerp.parentpom</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<name>BeeErp - Parent POM</name>
 
 
 	<properties>
@@ -13,6 +14,7 @@
 		<spring.version>4.1.7.RELEASE</spring.version>
 		<jooq.version>3.6.2</jooq.version>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<jacoco.out.path>${session.executionRootDirectory}/target</jacoco.out.path>
 	</properties>
 
 	<build>
@@ -38,37 +40,57 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.5.201505241946</version>
+				<version>0.7.4.201502262128</version>
 				<executions>
 					<execution>
-						<id>default-prepare-agent</id>
+						<id>pre-unit-test</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 						<configuration>
+							<destFile>${jacoco.out.path}/coverage-reports/jacoco-ut.exec</destFile>
 							<propertyName>surefireArgLine</propertyName>
 						</configuration>
 					</execution>
 					<execution>
-						<id>default-prepare-agent-integration</id>
+						<id>pre-integration-test</id>
 						<goals>
 							<goal>prepare-agent-integration</goal>
 						</goals>
 						<configuration>
+							<destFile>${jacoco.out.path}/coverage-reports/jacoco-it.exec</destFile>
 							<propertyName>failsafeArgLine</propertyName>
 						</configuration>
 					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<configuration>
+					<excludes>
+						<exclude>**/IT*.java</exclude>
+						<exclude>**/*IT.java</exclude>
+						<exclude>**/*ITCase.java</exclude>
+					</excludes>
+					<argLine>${surefireArgLine}</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.18.1</version>
+				<executions>
 					<execution>
-						<id>default-report</id>
+						<id>integration-tests</id>
+						<phase>integration-test</phase>
 						<goals>
-							<goal>report</goal>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
 						</goals>
-					</execution>
-					<execution>
-						<id>default-report-integration</id>
-						<goals>
-							<goal>report-integration</goal>
-						</goals>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -97,7 +119,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<name>BeeErp - Parent POM</name>
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

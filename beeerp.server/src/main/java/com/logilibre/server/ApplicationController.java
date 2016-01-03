@@ -58,7 +58,7 @@ public class ApplicationController {
 		Integer newId = orm.add(WEEKLY_TIME, weeklyTime);
 
 		model.addAttribute("value", weeklyTime);
-		System.out.println(param);
+		log.debug("postadd data: {}", param);
 		return "redirect:/timesheet/weekly_time/get/" + newId;
 	}
 
