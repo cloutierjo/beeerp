@@ -11,11 +11,15 @@
 	<packaging>pom</packaging>
 	<name>BeeErp Packaging - All</name>
 	<modules>
+		<!-- extension module -->
 		<module>../beeerp.module.biling</module>
-		<module>../beeerp.module</module>
 		<module>../beeerp.module.timesheet</module>
-		<module>../beeerp.orm</module>
+		
+		<!-- core module -->
 		<module>../beeerp.parentpom</module>
+		<module>../beeerp.module</module>
+		<module>../beeerp.orm</module>
+		<module>../beeerp.taglib</module>
 		<module>../beeerp.server</module>
 	</modules>
 </project>

@@ -9,7 +9,6 @@
 		<beeerp:form>
 			<beeerp:input name="date" value="${value.date}" label="date"></beeerp:input>
 			<beeerp:input name="time" value="${value.time}" label="time"></beeerp:input>
-			<input type="submit">
 		</beeerp:form>
 	</body>
 </html>
