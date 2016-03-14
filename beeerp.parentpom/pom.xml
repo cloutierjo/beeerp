@@ -50,6 +50,7 @@
 						<configuration>
 							<destFile>${jacoco.out.path}/coverage-reports/jacoco-ut.exec</destFile>
 							<propertyName>surefireArgLine</propertyName>
+							<append>surefireArgLine</append>
 						</configuration>
 					</execution>
 					<execution>
@@ -60,6 +61,7 @@
 						<configuration>
 							<destFile>${jacoco.out.path}/coverage-reports/jacoco-it.exec</destFile>
 							<propertyName>failsafeArgLine</propertyName>
+							<append>surefireArgLine</append>
 						</configuration>
 					</execution>
 				</executions>
@@ -201,6 +203,21 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>1.7.12</version>
+			</dependency>
+			<dependency>
+				<groupId>taglibs</groupId>
+				<artifactId>standard</artifactId>
+				<version>1.1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>jstl</groupId>
+				<artifactId>jstl</artifactId>
+				<version>1.2</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
