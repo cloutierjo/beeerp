@@ -5,6 +5,7 @@ import static com.logilibre.module.timesheet.jooq.Tables.*;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.logilibre.module.timesheet.entities.WeeklyTime;
 import com.logilibre.orm.Orm;
+
+import net.jc.beeerp.module.Entity;
+import net.jc.beeerp.module.field.Field;
+import net.jc.beeerp.module.field.Fields;
 
 @Controller
 @RequestMapping("/")
@@ -50,14 +55,13 @@ public class ApplicationController {
 	@RequestMapping(value = "/timesheet/weekly_time/add", method = RequestMethod.POST)
 	public String postadd(ModelMap model, @RequestParam Map<String, String> param) {
 		log.debug("postadd new entity");
-		WeeklyTime weeklyTime = new WeeklyTime();
-		weeklyTime.getFields().setDataString("date", param.get("date"));
-		weeklyTime.getFields().setDataString("time", param.get("time"));
+		Entity entity = new WeeklyTime();
+		updateEntity(param, entity);
 
 		Orm orm = new Orm();
-		Integer newId = orm.add(WEEKLY_TIME, weeklyTime);
+		Integer newId = orm.add(WEEKLY_TIME, entity);
 
-		model.addAttribute("value", weeklyTime);
+		model.addAttribute("value", entity);
 		log.debug("postadd data: {}", param);
 		return "redirect:/timesheet/weekly_time/get/" + newId;
 	}
@@ -72,14 +76,13 @@ public class ApplicationController {
 	public String postupdate(@PathVariable Integer id, ModelMap model, @RequestParam Map<String, String> param) {
 		log.debug("postupdate '{}' entity", id);
 		Orm orm = new Orm();
-		WeeklyTime weeklyTime = orm.get(WEEKLY_TIME, WeeklyTime.class, id);
+		Entity entity = orm.get(WEEKLY_TIME, WeeklyTime.class, id);
 
-		weeklyTime.getFields().setDataString("date", param.get("date"));
-		weeklyTime.getFields().setDataString("time", param.get("time"));
+		updateEntity(param, entity);
+		
+		orm.update(WEEKLY_TIME, entity);
 
-		orm.update(WEEKLY_TIME, weeklyTime);
-
-		model.addAttribute("value", weeklyTime);
+		model.addAttribute("value", entity);
 		log.debug("postupdate data: {}", param);
 		return "index";
 	}
@@ -97,5 +100,17 @@ public class ApplicationController {
 		orm.delete(WEEKLY_TIME, id);
 
 		return "redirect:/timesheet/weekly_time/get/1";
+	}
+
+	private void updateEntity(Map<String, String> param, Entity entity) {
+		Fields fields = entity.getFields();
+		for(Entry<String, String> paramEntry:param.entrySet()){
+			String paramName = paramEntry.getKey();
+			String paramValue = paramEntry.getValue();
+			Field<?> field = fields.getField(paramName);
+			if(field != null){
+				field.setDataString(paramValue);
+			}
+		}
 	}
 }

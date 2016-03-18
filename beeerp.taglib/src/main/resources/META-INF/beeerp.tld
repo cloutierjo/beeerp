@@ -9,6 +9,10 @@
 	<!-- tag goes here -->
 	
 	<tag-file>
+		<name>autoInput</name>
+		<path>/META-INF/tags/autoInput.tag</path>
+	</tag-file>
+	<tag-file>
 		<name>input</name>
 		<path>/META-INF/tags/input.tag</path>
 	</tag-file>
