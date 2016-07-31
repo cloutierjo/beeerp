@@ -1,6 +1,7 @@
 package com.logilibre.module.timesheet.entities;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 import net.jc.beeerp.module.Entity;
 import net.jcs.jboildown.annotation.Getter;
@@ -8,16 +9,23 @@ import net.jcs.jboildown.annotation.Setter;
 
 @Getter @Setter
 public class WeeklyTime extends Entity implements
-		com.logilibre.module.timesheet.jooq.tables.interfaces.IWeeklyTime {
+com.logilibre.module.timesheet.jooq.tables.interfaces.IWeeklyTime {
 
 	private static final long serialVersionUID = -1959475316;
 
-	private Integer id;  
+	private Integer id;
 	private Date date;
 	private Double time;
 	private Double hollidayTimeUse;
 	private Double lostOvertime;
 	private Double sickTime;
+
+	@Override
+	public void setDefaultValue() {
+		setId(null);
+		setDate(new Date(Calendar.getInstance().getTimeInMillis()));
+		setTime(1.);
+	}
 
 	// -------------------------------------------------------------------------
 	// FROM and INTO

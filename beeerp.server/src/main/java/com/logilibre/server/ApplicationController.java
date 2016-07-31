@@ -1,9 +1,5 @@
 package com.logilibre.server;
 
-import static com.logilibre.module.timesheet.jooq.Tables.*;
-
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.logilibre.module.timesheet.entities.WeeklyTime;
 import com.logilibre.orm.Orm;
 
 import net.jc.beeerp.module.Entity;
@@ -46,62 +41,74 @@ public class ApplicationController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/timesheet/weekly_time/add", method = RequestMethod.GET)
-	public String getadd(ModelMap model) {
-		log.debug("getadd default entity");
-		WeeklyTime weeklyTime = new WeeklyTime();
-		weeklyTime.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
-		weeklyTime.setTime(1.);
-		model.addAttribute("value", weeklyTime);
+	@RequestMapping(value = "/{module}/{entity}/add", method = RequestMethod.GET)
+	public String getadd(@PathVariable String module, @PathVariable String entity, ModelMap model) {
+		log.debug("getadd '{}/{}' entity", module, entity);
+
+		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
+		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
+		Entity entityValue = entityDef.getDefaultEntity();
+		model.addAttribute("value", entityValue);
 
 		return "index";
 	}
 
-	@RequestMapping(value = "/timesheet/weekly_time/add", method = RequestMethod.POST)
-	public String postadd(ModelMap model, @RequestParam Map<String, String> param) {
-		log.debug("postadd new entity");
-		Entity entity = new WeeklyTime();
-		updateEntity(param, entity);
+	@RequestMapping(value = "/{module}/{entity}/add", method = RequestMethod.POST)
+	public String postadd(@PathVariable String module, @PathVariable String entity, ModelMap model, @RequestParam Map<String, String> param) {
+		log.debug("postadd '{}/{}' entity", module, entity);
 
-		Integer newId = orm.add(WEEKLY_TIME, entity);
+		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
+		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
+		Entity entityValue = entityDef.getEmptyEntity();
+		updateEntity(param, entityValue);
 
-		model.addAttribute("value", entity);
+		Integer newId = orm.add(entityDef.getTable(), entityValue);
+
+		model.addAttribute("value", entityValue);
 		log.debug("postadd data: {}", param);
-		return "redirect:/timesheet/weekly_time/get/" + newId;
+		return String.format("redirect:/%s/%s/get/%s", module, entity, newId);
 	}
 
-	@RequestMapping(value = "/timesheet/weekly_time/update/{id}", method = RequestMethod.GET)
-	public String getupdate(@PathVariable Integer id, ModelMap model) {
-		log.debug("getupdate '{}' entity", id);
-		return get("timesheet", "weekly_time", id, model);
+	@RequestMapping(value = "/{module}/{entity}/update/{id}", method = RequestMethod.GET)
+	public String getupdate(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model) {
+		log.debug("getupdate '{}/{}/{}' entity", module, entity, id);
+		return get(module, entity, id, model);
 	}
 
-	@RequestMapping(value = "/timesheet/weekly_time/update/{id}", method = RequestMethod.POST)
-	public String postupdate(@PathVariable Integer id, ModelMap model, @RequestParam Map<String, String> param) {
+	@RequestMapping(value = "/{module}/{entity}/update/{id}", method = RequestMethod.POST)
+	public String postupdate(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model,
+			@RequestParam Map<String, String> param) {
 		log.debug("postupdate '{}' entity", id);
-		Entity entity = orm.get(WEEKLY_TIME, WeeklyTime.class, id);
 
-		updateEntity(param, entity);
+		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
+		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
+		Entity entityValue = orm.get(entityDef.getTable(), entityDef.getEntity(), id);
 
-		orm.update(WEEKLY_TIME, entity);
+		updateEntity(param, entityValue);
 
-		model.addAttribute("value", entity);
+		orm.update(entityDef.getTable(), entityValue);
+
+		model.addAttribute("value", entityValue);
 		log.debug("postupdate data: {}", param);
 		return "index";
 	}
 
-	@RequestMapping(value = "/timesheet/weekly_time/delete/{id}", method = RequestMethod.GET)
-	public String getdelete(@PathVariable Integer id, ModelMap model) {
-		log.debug("getdelete '{}' entity", id);
-		return get("timesheet", "weekly_time", id, model);
+	@RequestMapping(value = "/{module}/{entity}/delete/{id}", method = RequestMethod.GET)
+	public String getdelete(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model) {
+		log.debug("getdelete '{}/{}/{}' entity", module, entity, id);
+		return get(module, entity, id, model);
 	}
 
-	@RequestMapping(value = "/timesheet/weekly_time/delete/{id}", method = RequestMethod.POST)
-	public String postdelete(@PathVariable Integer id, HttpServletResponse httpServletResponse) {
-		log.debug("postdelete '{}' entity", id);
-		orm.delete(WEEKLY_TIME, id);
+	@RequestMapping(value = "/{module}/{entity}/delete/{id}", method = RequestMethod.POST)
+	public String postdelete(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id,
+			HttpServletResponse httpServletResponse) {
+		log.debug("postdelete '{}/{}/{}' entity", module, entity, id);
 
-		return "redirect:/timesheet/weekly_time/get/1";
+		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
+		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
+		orm.delete(entityDef.getTable(), id);
+
+		return String.format("redirect:/%s/%s/get/1", module, entity);
 	}
 
 	private void updateEntity(Map<String, String> param, Entity entity) {
