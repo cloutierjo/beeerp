@@ -59,15 +59,15 @@ public class Entity {
 		case "boolean":
 			field = new FieldBool(fieldName, this);
 			break;
-		// case CURRENCY:
-		// field = new FieldCurrency(fieldName);
-		// break;
+			// case CURRENCY:
+			// field = new FieldCurrency(fieldName);
+			// break;
 		case "java.sql.Date":
 			field = new FieldDate(fieldName, this);
 			break;
-		// case DATE_TIME:
-		// field = new FieldDateTime(fieldName);
-		// break;
+			// case DATE_TIME:
+			// field = new FieldDateTime(fieldName);
+			// break;
 		case "java.lang.Double":
 		case "double":
 			field = new FieldDouble(fieldName, this);
@@ -76,15 +76,15 @@ public class Entity {
 		case "int":
 			field = new FieldInteger(fieldName, this);
 			break;
-		// case STRING:
-		// field = new FieldString(fieldName);
-		// break;
-		// case TEXT:
-		// field = new FieldText(fieldName);
-		// break;
-		// case TIME:
-		// field = new FieldTime(fieldName);
-		// break;
+			// case STRING:
+			// field = new FieldString(fieldName);
+			// break;
+			// case TEXT:
+			// field = new FieldText(fieldName);
+			// break;
+			// case TIME:
+			// field = new FieldTime(fieldName);
+			// break;
 		}
 
 		return field;
@@ -140,8 +140,13 @@ public class Entity {
 	 * @param fieldName The field name
 	 * @param data the data to set from it's string format
 	 * @see net.jc.beeerp.module.field.Fields#setDataString(java.lang.String, java.lang.String)
-	 */@Deprecated
-	 public void setDataString(String fieldName, String data) {
-		 fields.setDataString(fieldName, data);
-	 };
+	 */
+	@Deprecated
+	public void setDataString(String fieldName, String data) {
+		fields.setDataString(fieldName, data);
+	};
+
+	public void setDefaultValue() {
+		// default implementation do nothing
+	}
 }

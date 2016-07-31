@@ -3,14 +3,15 @@ package net.jc.beeerp.module;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
-import net.jc.beeerp.module.field.Field;
-import net.jc.beeerp.module.field.Fields;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import net.jc.beeerp.module.field.Field;
+import net.jc.beeerp.module.field.Fields;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EntityTest {
@@ -19,12 +20,12 @@ public class EntityTest {
 	private static final String TO_STRING_RETURN_VALUE = "thisData";
 
 	private Entity entity;
-	
+
 	@Mock
 	private Fields fields;
 	@Mock
 	private Field field;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		when(fields.getField(anyString())).thenReturn(field);
@@ -72,6 +73,12 @@ public class EntityTest {
 	@Test
 	public final void equalsReturnTrueWhenSecondIsSameInstance() {
 		assertTrue(entity.equals(entity));
+	}
+
+	@Test
+	public final void defaultEntitySetDefaultValueDoesNothing() {
+		entity.setDefaultValue();
+		assertNotNull(entity);
 	}
 
 }

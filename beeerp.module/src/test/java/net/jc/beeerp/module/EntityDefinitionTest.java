@@ -30,8 +30,14 @@ public class EntityDefinitionTest<R extends UpdatableRecord<R>> {
 	}
 
 	@Test
-	public void getEntity_returnConstructedEntity() {
+	public void getEntity_returnEntityClass() {
 		assertSame(TestEntity.class, entityDefinition.getEntity());
 	}
 
+	@Test
+	public void getEmptyEntity_returnEmptyEntity() {
+		Entity emptyEntity = entityDefinition.getEmptyEntity();
+		assertNotNull(emptyEntity);
+		assertTrue(emptyEntity instanceof TestEntity);
+	}
 }

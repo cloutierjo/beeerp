@@ -1,11 +1,12 @@
 package net.jc.beeerp.it.module;
 
 import static org.junit.Assert.*;
-import net.jc.beeerp.it.module.testdata.TestEntity;
-import net.jc.beeerp.module.field.Field;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import net.jc.beeerp.it.module.testdata.TestEntity;
+import net.jc.beeerp.module.field.Field;
 
 @SuppressWarnings("deprecation")
 // TODO: remove when decision is taken
@@ -110,5 +111,12 @@ public class EntityFieldsIt {
 	public final void setValueFromEntityIsRetrivableFromField() {
 		entity.setId(ID_TEST_VALUE);
 		assertEquals(ID_TEST_VALUE, entity.getFields().getData("id"));
+	}
+
+	@Test
+	public final void setDefaultValueFromEntityDoSetDefaultValue() {
+		entity.setDefaultValue();
+		assertEquals(25, entity.getFields().getData("id"));
+		assertTrue((Boolean) entity.getFields().getData("fieldBool"));
 	}
 }

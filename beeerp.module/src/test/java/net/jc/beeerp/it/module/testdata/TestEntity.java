@@ -5,12 +5,13 @@ import java.sql.Date;
 import net.jc.beeerp.module.Entity;
 
 public class TestEntity extends Entity {
-	private Integer id; 
+	private Integer id;
 	private Date fieldDate;
 	private Double fieldDouble;
 	private Integer fieldInteger;
 	private Boolean fieldBool;
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -25,7 +26,7 @@ public class TestEntity extends Entity {
 
 	public void setFieldBool(boolean fieldBool) {
 		this.fieldBool = fieldBool;
-	} 
+	}
 
 	public Double getFieldDouble() {
 		return fieldDouble;
@@ -51,45 +52,10 @@ public class TestEntity extends Entity {
 		this.fieldDate = fieldDate;
 	}
 
+	@Override
+	public void setDefaultValue() {
+		setId(25);
+		setFieldBool(true);
+	}
 
-
-//	/**
-//	 * Set the data to the specified field
-//	 * 
-//	 * @param fieldName The field name
-//	 * @param data the data to set
-//	 * @see net.jc.beeerp.module.field.Fields#setData(java.lang.String, java.lang.Object)
-//	 */
-//	@Override
-//	public void setData(String fieldName, Object data, Field.Safety safety) {
-//		if(safety==null){
-//			throw new IllegalAccessError("cannot setData from outside a Field");
-//		}
-//		try {
-//			getClass().getDeclaredField(fieldName).set(this, data);
-//		} catch (IllegalArgumentException | IllegalAccessException
-//				| NoSuchFieldException | SecurityException e) {			throw new RuntimeException(
-//						"couldn't get value from '" + fieldName + "' field on '" + getClass().getCanonicalName() + "' entity", e);
-//		}
-//	}
-//
-//	/**
-//	 * Get the data from a specified field
-//	 * 
-//	 * @param fieldName The field name
-//	 * @return The data from the specified field
-//	 * @see net.jc.beeerp.module.field.Fields#getData(java.lang.String)
-//	 */
-//	@Override
-//	public Object getData(String fieldName, Field.Safety safety) {
-//		if(safety==null){
-//			throw new IllegalAccessError("cannot setData from outside a Field");
-//		}
-//		try {
-//			return getClass().getDeclaredField(fieldName).get(this);
-//		} catch (IllegalArgumentException | IllegalAccessException
-//				| NoSuchFieldException | SecurityException e) {			throw new RuntimeException(
-//						"couldn't get value from '" + fieldName + "' field on '" + getClass().getCanonicalName() + "' entity", e);
-//		}
-//	}
 }
