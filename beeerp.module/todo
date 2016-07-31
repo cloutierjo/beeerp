@@ -1,0 +1,19 @@
+rendre dynamique les appel de formulaire
+	demande aussi a rendre dynamique l'orm
+	ex: /module/entity/action/paramId
+
+ajout d'un taglib de formulaire
+	doit pouvoir généré tout type de champ (boolean et date. Int et double sont déja fonctionnel)
+	
+Géré la validation de champ BE et FE via les validation jsr	
+	doit pouvoir supporter les validation front end (jsr validation)
+	doit pouvoir supporter les retour de validation back end (jsr validation)
+	doit utiliser des noms standardisé BE-FE
+
+remonté la dépendance de JOOQ dans orm
+
+
+== À recherche ==
+
+== tache à ajouter==
+

@@ -57,34 +57,34 @@ public class Entity {
 		switch (fieldType.getCanonicalName()) {
 		case "java.lang.Boolean":
 		case "boolean":
-			field = new FieldBool(fieldName ,this);
+			field = new FieldBool(fieldName, this);
 			break;
-			// case CURRENCY:
-			// field = new FieldCurrency(fieldName);
-			// break;
+		// case CURRENCY:
+		// field = new FieldCurrency(fieldName);
+		// break;
 		case "java.sql.Date":
-			field = new FieldDate(fieldName ,this);
+			field = new FieldDate(fieldName, this);
 			break;
-			// case DATE_TIME:
-			// field = new FieldDateTime(fieldName);
-			// break;
+		// case DATE_TIME:
+		// field = new FieldDateTime(fieldName);
+		// break;
 		case "java.lang.Double":
 		case "double":
-			field = new FieldDouble(fieldName ,this);
+			field = new FieldDouble(fieldName, this);
 			break;
 		case "java.lang.Integer":
 		case "int":
-			field = new FieldInteger(fieldName ,this);
+			field = new FieldInteger(fieldName, this);
 			break;
-			// case STRING:
-			// field = new FieldString(fieldName);
-			// break;
-			// case TEXT:
-			// field = new FieldText(fieldName);
-			// break;
-			// case TIME:
-			// field = new FieldTime(fieldName);
-			// break;
+		// case STRING:
+		// field = new FieldString(fieldName);
+		// break;
+		// case TEXT:
+		// field = new FieldText(fieldName);
+		// break;
+		// case TIME:
+		// field = new FieldTime(fieldName);
+		// break;
 		}
 
 		return field;

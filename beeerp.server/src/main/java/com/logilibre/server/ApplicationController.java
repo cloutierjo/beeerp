@@ -22,6 +22,8 @@ import com.logilibre.module.timesheet.entities.WeeklyTime;
 import com.logilibre.orm.Orm;
 
 import net.jc.beeerp.module.Entity;
+import net.jc.beeerp.module.EntityDefinition;
+import net.jc.beeerp.module.ModuleDefinition;
 import net.jc.beeerp.module.field.Field;
 import net.jc.beeerp.module.field.Fields;
 
@@ -29,14 +31,17 @@ import net.jc.beeerp.module.field.Fields;
 @RequestMapping("/")
 public class ApplicationController {
 	final Logger log = LoggerFactory.getLogger(ApplicationController.class);
+	private Orm orm = new Orm();
 
-	@RequestMapping(value = "/timesheet/weekly_time/get/{id}", method = RequestMethod.GET)
-	public String get(@PathVariable Integer id, ModelMap model) {
-		log.debug("get '{}' entity", id);
-		Orm orm = new Orm();
-		WeeklyTime weeklyTime = orm.get(WEEKLY_TIME, WeeklyTime.class, id);
+	@RequestMapping(value = "/{module}/{entity}/get/{id}", method = RequestMethod.GET)
+	public String get(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model) {
+		log.debug("get '{}/{}/{}' entity", module,entity, id);
 
-		model.addAttribute("value", weeklyTime);
+		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
+		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
+		Entity entityValue = orm.get(entityDef.getTable(), entityDef.getEntity(), id);
+
+		model.addAttribute("value", entityValue);
 
 		return "index";
 	}
@@ -58,7 +63,6 @@ public class ApplicationController {
 		Entity entity = new WeeklyTime();
 		updateEntity(param, entity);
 
-		Orm orm = new Orm();
 		Integer newId = orm.add(WEEKLY_TIME, entity);
 
 		model.addAttribute("value", entity);
@@ -69,17 +73,16 @@ public class ApplicationController {
 	@RequestMapping(value = "/timesheet/weekly_time/update/{id}", method = RequestMethod.GET)
 	public String getupdate(@PathVariable Integer id, ModelMap model) {
 		log.debug("getupdate '{}' entity", id);
-		return get(id, model);
+		return get("timesheet", "weekly_time", id, model);
 	}
 
 	@RequestMapping(value = "/timesheet/weekly_time/update/{id}", method = RequestMethod.POST)
 	public String postupdate(@PathVariable Integer id, ModelMap model, @RequestParam Map<String, String> param) {
 		log.debug("postupdate '{}' entity", id);
-		Orm orm = new Orm();
 		Entity entity = orm.get(WEEKLY_TIME, WeeklyTime.class, id);
 
 		updateEntity(param, entity);
-		
+
 		orm.update(WEEKLY_TIME, entity);
 
 		model.addAttribute("value", entity);
@@ -90,13 +93,12 @@ public class ApplicationController {
 	@RequestMapping(value = "/timesheet/weekly_time/delete/{id}", method = RequestMethod.GET)
 	public String getdelete(@PathVariable Integer id, ModelMap model) {
 		log.debug("getdelete '{}' entity", id);
-		return get(id, model);
+		return get("timesheet", "weekly_time", id, model);
 	}
 
 	@RequestMapping(value = "/timesheet/weekly_time/delete/{id}", method = RequestMethod.POST)
 	public String postdelete(@PathVariable Integer id, HttpServletResponse httpServletResponse) {
 		log.debug("postdelete '{}' entity", id);
-		Orm orm = new Orm();
 		orm.delete(WEEKLY_TIME, id);
 
 		return "redirect:/timesheet/weekly_time/get/1";

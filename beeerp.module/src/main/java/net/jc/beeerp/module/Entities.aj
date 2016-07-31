@@ -22,8 +22,8 @@ privileged aspect Entities {
 			field.setAccessible(true);
 			field.set(thisJoinPoint.getTarget(), data);
 		} catch (IllegalArgumentException | IllegalAccessException
-				| NoSuchFieldException | SecurityException e) {			throw new RuntimeException(
-						"couldn't get value from '" + fieldName + "' field on '" + getClass().getCanonicalName() + "' entity", e);
+				| NoSuchFieldException | SecurityException e) {
+			throw new RuntimeException("couldn't get value from '" + fieldName + "' field on '" + getClass().getCanonicalName() + "' entity", e);
 		}
 	}
 
@@ -39,8 +39,8 @@ privileged aspect Entities {
 			field.setAccessible(true);
 			return field.get(thisJoinPoint.getTarget());
 		} catch (IllegalArgumentException | IllegalAccessException
-				| NoSuchFieldException | SecurityException e) {			throw new RuntimeException(
-						"couldn't get value from '" + fieldName + "' field on '" + getClass().getCanonicalName() + "' entity", e);
+				| NoSuchFieldException | SecurityException e) {
+			throw new RuntimeException("couldn't get value from '" + fieldName + "' field on '" + getClass().getCanonicalName() + "' entity", e);
 		}
 	}
 	/**

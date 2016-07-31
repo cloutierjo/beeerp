@@ -2,12 +2,13 @@ package com.logilibre.module.timesheet.entities;
 
 import com.logilibre.module.timesheet.jooq.tables.interfaces.IWageStates;
 
+import net.jc.beeerp.module.Entity;
 import net.jcs.jboildown.annotation.Getter;
 import net.jcs.jboildown.annotation.Setter;
 
 @Getter @Setter
-public class WageStates implements com.logilibre.module.timesheet.jooq.tables.interfaces.IWageStates {
- 
+public class WageStates extends Entity implements com.logilibre.module.timesheet.jooq.tables.interfaces.IWageStates {
+
 	private static final long serialVersionUID = 427105034;
 
 	private java.lang.Integer id;
@@ -17,12 +18,14 @@ public class WageStates implements com.logilibre.module.timesheet.jooq.tables.in
 
 	@Override
 	public void from(IWageStates from) {
-		// TODO Auto-generated method stub
-		
+		setId(from.getId());
+		setWeeklyWage(from.getWeeklyWage());
+		setHollidayRate(from.getHollidayRate());
+		setNormalWeekTime(from.getNormalWeekTime());
 	}
 	@Override
 	public <E extends IWageStates> E into(E into) {
-		// TODO Auto-generated method stub
-		return null;
+		into.from(this);
+		return into;
 	}
 }

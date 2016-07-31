@@ -9,15 +9,15 @@ import java.sql.SQLException;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.SQLDialect;
+import org.jooq.Table;
+import org.jooq.UpdatableRecord;
 import org.jooq.conf.Settings;
-import org.jooq.impl.TableImpl;
-import org.jooq.impl.UpdatableRecordImpl;
 
 import net.jc.beeerp.module.Entity;
 
 public class Orm {
 
-	public <E extends Entity> E get(TableImpl<? extends UpdatableRecordImpl<?>> table, Class<E> type, Integer id) {
+	public <E extends Entity> E get(Table<? extends UpdatableRecord<?>> table, Class<E> type, Integer id) {
 		try (Connection conn = getConnection()) {
 			DSLContext sql = getSqlContext(conn);
 			Field<Integer> fieldId = getFieldId(table);
@@ -27,11 +27,11 @@ public class Orm {
 		}
 	}
 
-	public Integer add(TableImpl<? extends UpdatableRecordImpl<?>> table, Entity entity) {
+	public Integer add(Table<? extends UpdatableRecord<?>> table, Entity entity) {
 		try (Connection conn = getConnection()) {
 			DSLContext sql = getSqlContext(conn);
 
-			UpdatableRecordImpl<?> newRecord = sql.newRecord(table, entity);
+			UpdatableRecord<?> newRecord = sql.newRecord(table, entity);
 			newRecord.store();
 
 			Field<Integer> fieldId = getFieldId(table);
@@ -41,18 +41,18 @@ public class Orm {
 		}
 	}
 
-	public void update(TableImpl<? extends UpdatableRecordImpl<?>> table, Entity entity) {
+	public void update(Table<? extends UpdatableRecord<?>> table, Entity entity) {
 		try (Connection conn = getConnection()) {
 			DSLContext sql = getSqlContext(conn);
 
-			UpdatableRecordImpl<?> record = sql.newRecord(table, entity);
+			UpdatableRecord<?> record = sql.newRecord(table, entity);
 			record.update();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public void delete(TableImpl<? extends UpdatableRecordImpl<?>> table, Integer id) {
+	public void delete(Table<? extends UpdatableRecord<?>> table, Integer id) {
 		try (Connection conn = getConnection()) {
 			DSLContext sql = getSqlContext(conn);
 			Field<Integer> fieldId = getFieldId(table);
@@ -62,7 +62,7 @@ public class Orm {
 		}
 	}
 
-	private Field<Integer> getFieldId(TableImpl<?> table) {
+	private Field<Integer> getFieldId(Table<?> table) {
 		Field<?> field = table.field("id");
 		if (field.getType().isAssignableFrom(Integer.class)) {
 			@SuppressWarnings("unchecked")
