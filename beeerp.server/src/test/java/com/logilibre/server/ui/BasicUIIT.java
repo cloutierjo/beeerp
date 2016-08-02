@@ -73,7 +73,47 @@ public class BasicUIIT {
 		assertNotNull(inputTime.getAttribute("value"));
 	}
 
+	@Test
+	public void addAndDeleteValuepOnASecondEntity() throws Exception {
+		driver.get(BASE_TEST_URL + "/timesheet/wage_states/add");
+		waitPageLoad();
+		WebElement weeklyWage = driver.findElement(By.name("weeklyWage"));
+		weeklyWage.clear();
+		weeklyWage.sendKeys("200");
+
+		weeklyWage.submit();
+		waitPageLoad();
+		weeklyWage = driver.findElement(By.name("weeklyWage"));
+
+		assertEquals("200", weeklyWage.getAttribute("value"));
+
+		String currentUrl = driver.getCurrentUrl();
+		String[] urlParts = currentUrl.split("/");
+		String newId = urlParts[urlParts.length - 1];
+
+		driver.get(BASE_TEST_URL + "/timesheet/wage_states/update/" + newId);
+		waitPageLoad();
+		weeklyWage = driver.findElement(By.name("weeklyWage"));
+		weeklyWage.clear();
+		weeklyWage.sendKeys("500");
+
+		weeklyWage.submit();
+		waitPageLoad();
+		weeklyWage = driver.findElement(By.name("weeklyWage"));
+
+		assertEquals("500", weeklyWage.getAttribute("value"));
+
+		driver.get(BASE_TEST_URL + "/timesheet/wage_states/delete/" + newId);
+		waitPageLoad();
+		weeklyWage = driver.findElement(By.name("weeklyWage"));
+		weeklyWage.submit();
+
+		waitPageLoad();
+		weeklyWage = driver.findElement(By.name("weeklyWage"));
+		assertNotNull(weeklyWage.getAttribute("value"));
+	}
+
 	private void waitPageLoad() {
-		new WebDriverWait(driver, 10).until((WebDriver dr) -> dr.findElement(By.name("time")));
+		new WebDriverWait(driver, 10).until((WebDriver dr) -> dr.findElement(By.id("footer")));
 	}
 }

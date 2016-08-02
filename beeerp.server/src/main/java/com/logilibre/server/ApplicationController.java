@@ -1,12 +1,15 @@
 package com.logilibre.server;
 
+import java.net.MalformedURLException;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +30,9 @@ import net.jc.beeerp.module.field.Fields;
 public class ApplicationController {
 	final Logger log = LoggerFactory.getLogger(ApplicationController.class);
 	private Orm orm = new Orm();
+	
+	@Autowired
+	ServletContext context; 
 
 	@RequestMapping(value = "/{module}/{entity}/get/{id}", method = RequestMethod.GET)
 	public String get(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model) {
@@ -38,7 +44,7 @@ public class ApplicationController {
 
 		model.addAttribute("value", entityValue);
 
-		return "index";
+		return getEntityForm(module,entity);
 	}
 
 	@RequestMapping(value = "/{module}/{entity}/add", method = RequestMethod.GET)
@@ -50,7 +56,7 @@ public class ApplicationController {
 		Entity entityValue = entityDef.getDefaultEntity();
 		model.addAttribute("value", entityValue);
 
-		return "index";
+		return getEntityForm(module,entity);
 	}
 
 	@RequestMapping(value = "/{module}/{entity}/add", method = RequestMethod.POST)
@@ -90,7 +96,8 @@ public class ApplicationController {
 
 		model.addAttribute("value", entityValue);
 		log.debug("postupdate data: {}", param);
-		return "index";
+
+		return getEntityForm(module,entity);
 	}
 
 	@RequestMapping(value = "/{module}/{entity}/delete/{id}", method = RequestMethod.GET)
@@ -109,6 +116,16 @@ public class ApplicationController {
 		orm.delete(entityDef.getTable(), id);
 
 		return String.format("redirect:/%s/%s/get/1", module, entity);
+	}
+
+	private String getEntityForm(String module, String entity) {
+		try {
+			if(context.getResource("/pages/"+entity+".jsp")!=null)
+				return entity;
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+		return "index";
 	}
 
 	private void updateEntity(Map<String, String> param, Entity entity) {
