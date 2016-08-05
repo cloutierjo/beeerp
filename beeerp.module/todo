@@ -16,4 +16,7 @@ remonté la dépendance de JOOQ dans orm
 == À recherche ==
 
 == tache à ajouter==
-
+pull-up dependancies from module implementation either in module or in an imported pom
+si possible - Validation a la "compilation" des jsp pour valider que les champs existe bien
+si possible - Autocomplete dans l'ide des nom de champs pour les tag de la taglib
+Ne pas avoir de distinction entre . et virgule lors de la saisie de nombre décimal

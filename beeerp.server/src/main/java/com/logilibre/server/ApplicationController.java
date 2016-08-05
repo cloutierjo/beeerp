@@ -120,7 +120,7 @@ public class ApplicationController {
 
 	private String getEntityForm(String module, String entity) {
 		try {
-			if(context.getResource("/pages/"+entity+".jsp")!=null)
+			if(context.getResource("/pages/"+entity+".jsp")!=null) 
 				return entity;
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
