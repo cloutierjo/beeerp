@@ -3,6 +3,8 @@ package com.logilibre.module.timesheet.entities;
 import java.sql.Date;
 import java.util.Calendar;
 
+import javax.validation.constraints.Digits;
+
 import net.jc.beeerp.module.Entity;
 import net.jcs.jboildown.annotation.Getter;
 import net.jcs.jboildown.annotation.Setter;
@@ -15,6 +17,8 @@ com.logilibre.module.timesheet.jooq.tables.interfaces.IWeeklyTime {
 
 	private Integer id;
 	private Date date;
+
+	@Digits(integer = 2, fraction = 2)
 	private Double time;
 	private Double hollidayTimeUse;
 	private Double lostOvertime;

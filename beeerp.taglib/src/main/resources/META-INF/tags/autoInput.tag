@@ -9,4 +9,7 @@
 // parent.
 
 %>
-<beeerp:input label="${field}" name="${field}" value="${formEntity.fields.getDataString(field)}"/>
+<beeerp:input	label="${field}" 
+				name="${field}" 
+				value="${formEntity.fields.getDataString(field)}" 
+				error="${errors[field].message}"/>
