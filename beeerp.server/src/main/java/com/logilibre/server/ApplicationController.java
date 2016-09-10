@@ -73,12 +73,21 @@ public class ApplicationController {
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
 		Entity entityValue = entityDef.getEmptyEntity();
 		updateEntity(param, entityValue);
+		Map<String, ConstraintViolation<Entity>> errors = validateEntity(entityValue);
 
-		Integer newId = orm.add(entityDef.getTable(), entityValue);
+		if (errors.isEmpty()) {
+			Integer newId = orm.add(entityDef.getTable(), entityValue);
+
+			model.addAttribute("value", entityValue);
+			log.debug("postadd data: {}", param);
+			return String.format("redirect:/%s/%s/get/%s", module, entity, newId);
+		}
 
 		model.addAttribute("value", entityValue);
-		log.debug("postadd data: {}", param);
-		return String.format("redirect:/%s/%s/get/%s", module, entity, newId);
+		model.addAttribute("errors", errors);
+		log.debug("postadd data-error: {}", param);
+
+		return getEntityForm(module, entity);
 	}
 
 	@RequestMapping(value = "/{module}/{entity}/update/{id}", method = RequestMethod.GET)

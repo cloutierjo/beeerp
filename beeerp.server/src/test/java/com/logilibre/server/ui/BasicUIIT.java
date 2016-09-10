@@ -2,29 +2,11 @@ package com.logilibre.server.ui;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class BasicUIIT {
-	private static final String BASE_TEST_URL = "http://localhost:8080/beeerp.server";
-	private WebDriver driver;
-
-	@Before
-	public void setup() {
-		driver = new FirefoxDriver();
-	}
-
-	@After
-	public void tearDown() {
-		driver.quit();
-	}
-
+public class BasicUIIT extends UITestBase {
 	@Test
 	public void getInitialValue() throws Exception {
 		driver.get(BASE_TEST_URL + "/timesheet/weekly_time/get/1");
@@ -111,9 +93,5 @@ public class BasicUIIT {
 		waitPageLoad();
 		weeklyWage = driver.findElement(By.name("weeklyWage"));
 		assertNotNull(weeklyWage.getAttribute("value"));
-	}
-
-	private void waitPageLoad() {
-		new WebDriverWait(driver, 10).until((WebDriver dr) -> dr.findElement(By.id("footer")));
 	}
 }
