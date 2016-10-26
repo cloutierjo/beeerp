@@ -93,6 +93,6 @@ public class Orm {
 
 	private DSLContext getSqlContext(Connection conn) {
 		return using(conn, SQLDialect.POSTGRES,
-				new Settings().withRenderFormatted(true));
+				new Settings().withRenderFormatted(Boolean.TRUE));
 	}
 }

@@ -12,17 +12,17 @@ public class FieldInteger extends Field<Integer> {
 
 	@Override
 	public void setDataString(String data) {
-		if (data == null || data.isEmpty() || data.equals("null")) {
+		if (data == null || data.isEmpty() || "null".equals(data)) {
 			setDataType(0);
 			return;
 		}
 
 		try{
-			setDataType(Integer.parseInt(data));
+			setDataType(Integer.valueOf(data));
 		}catch(Exception e){
 			throw new InvalidDataValueException(
 					"Le format de donnée entrée ne correspond pas avec le type de champ (int): "
-							+ data);
+							+ data, e);
 		}
 	}
 

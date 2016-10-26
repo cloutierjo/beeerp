@@ -144,7 +144,7 @@ public class Entity {
 	@Deprecated
 	public void setDataString(String fieldName, String data) {
 		fields.setDataString(fieldName, data);
-	};
+	}
 
 	public void setDefaultValue() {
 		// default implementation do nothing

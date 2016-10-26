@@ -14,7 +14,7 @@ public class FieldDate extends Field<Date> {
 
 	@Override
 	public void setDataString(String data) {
-		if (data == null || data.isEmpty() || data.equals("null")) {
+		if (data == null || data.isEmpty() || "null".equals(data)) {
 			setDataType(null);
 			return;
 		}
@@ -24,7 +24,7 @@ public class FieldDate extends Field<Date> {
 		}catch(Exception e){
 			throw new InvalidDataValueException(
 					"Le format de donnée entrée ne correspond pas avec le type de champ (Date): "
-							+ data);
+							+ data, e);
 		}
 	}
 

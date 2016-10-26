@@ -23,11 +23,11 @@ public class FieldBool extends Field<Boolean> {
 
 	@Override
 	public void setDataString(String data) {
-		if (data.equalsIgnoreCase("on") || data.equalsIgnoreCase("true")
-				|| data.equalsIgnoreCase("yes")) {
-			setDataType(true);
+		if ("on".equalsIgnoreCase(data) || "true".equalsIgnoreCase(data)
+				|| "yes".equalsIgnoreCase(data)) {
+			setDataType(Boolean.TRUE);
 		} else {
-			setDataType(false);
+			setDataType(Boolean.FALSE);
 		}
 	}
 

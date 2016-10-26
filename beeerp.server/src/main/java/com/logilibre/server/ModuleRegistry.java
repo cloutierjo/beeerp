@@ -17,7 +17,7 @@ public class ModuleRegistry {
 
 	}
 
-	public void add(ModuleDefinition module) {
+	public final void add(ModuleDefinition module) {
 		modules.put(module.getName(), module);
 	}
 
