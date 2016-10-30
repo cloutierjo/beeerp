@@ -2,7 +2,6 @@ package net.jc.beeerp.module.field;
 
 import net.jc.beeerp.module.Entity;
 import net.jc.beeerp.module.PropertiesAccessibleEntity;
-import net.jc.beeerp.module.field.exception.InvalidDataValueException;
 
 public abstract class Field<T> {
 	public static class Safety { private Safety() {} }
@@ -13,7 +12,7 @@ public abstract class Field<T> {
 
 	public Field(String name, Entity originalEntity) {
 		this.name = name;
-		this.originalEntity = ((PropertiesAccessibleEntity)originalEntity);
+		this.originalEntity = (PropertiesAccessibleEntity) originalEntity;
 	}
 
 	public String getName() {
@@ -26,15 +25,16 @@ public abstract class Field<T> {
 	public T getData() {
 		return getTypeArgument().cast(originalEntity.getData(name, safety));
 	}
-	
+
 	/**
 	 * Set the data to the specified field
 	 * @param data the data to set
 	 */
 	public String getDataString() {
 		T data = getData();
-		if (data == null)
+		if (data == null) {
 			return "";
+		}
 		return data.toString();
 	}
 
@@ -51,7 +51,7 @@ public abstract class Field<T> {
 	 * @param data the new data type
 	 */
 	protected void setDataType(T data) {
-		originalEntity.setData(name, data, safety); 
+		originalEntity.setData(name, data, safety);
 	}
 
 	/**
@@ -59,8 +59,7 @@ public abstract class Field<T> {
 	 * 
 	 * @param data the data to set from it's string format
 	 */
-	public abstract void setDataString(String data)
-			throws InvalidDataValueException;
+	public abstract void setDataString(String data);
 
 	/**
 	 * Gets the type argument.

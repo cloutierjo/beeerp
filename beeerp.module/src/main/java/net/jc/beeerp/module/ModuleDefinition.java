@@ -10,7 +10,8 @@ public abstract class ModuleDefinition {
 	public ModuleDefinition() {
 		tables = new HashMap<>();
 	}
-	abstract public String getName();
+
+	public abstract String getName();
 
 	public EntityDefinition<?, ?> getEntity(String tableName) {
 		return tables.get(tableName);

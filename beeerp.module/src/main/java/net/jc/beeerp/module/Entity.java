@@ -9,8 +9,6 @@ import net.jc.beeerp.module.field.type.FieldDate;
 import net.jc.beeerp.module.field.type.FieldDouble;
 import net.jc.beeerp.module.field.type.FieldInteger;
 
-//TODO: CRUD action directly in entity, might be in a separate sub class, like persistentEntity
-
 /**
  *	Represent a simple entity that contain fields
  */
@@ -24,10 +22,6 @@ public class Entity {
 		this.fields = fields;
 	}
 
-	public Integer getId() {
-		throw new UnsupportedOperationException("the getId method must be reimplemented");
-	}
-
 	/**
 	 * Build an entity containing the fields based on the entity member.
 	 */
@@ -35,8 +29,12 @@ public class Entity {
 		this.fields = generateFields();
 	}
 
+	public Integer getId() {
+		throw new UnsupportedOperationException("the getId method must be reimplemented");
+	}
+
 	private Fields generateFields() {
-		Fields fields = new Fields();
+		Fields newFields = new Fields();
 		for (java.lang.reflect.Field field : this.getClass()
 				.getDeclaredFields()) {
 			int modifiers = field.getModifiers();
@@ -45,9 +43,9 @@ public class Entity {
 					|| Modifier.isVolatile(modifiers)){
 				continue;
 			}
-			fields.addField(newField(field.getType(), field.getName()));
+			newFields.addField(newField(field.getType(), field.getName()));
 		}
-		return fields;
+		return newFields;
 	}
 
 	private Field<?> newField(Class<?> fieldType, String fieldName)
@@ -85,6 +83,8 @@ public class Entity {
 			// case TIME:
 			// field = new FieldTime(fieldName);
 			// break;
+		default:
+			throw new UnsupportedOperationException("The field type " + fieldType.getCanonicalName() + " isn't managed");
 		}
 
 		return field;
@@ -105,17 +105,20 @@ public class Entity {
 	 * @param fieldName The field name
 	 * @return The data from the specified field
 	 * @see net.jc.beeerp.module.field.Fields#getData(java.lang.String)
+	 * @deprecated The field getData method should be used directly
 	 */
 	@Deprecated
 	public Object getData(String fieldName) {
 		return fields.getData(fieldName);
 	}
+	
 	/**
 	 * Get the data from a specified field in it's string format
 	 * 
 	 * @param fieldName The field name
 	 * @return The data from the specified field in it's string format
 	 * @see net.jc.beeerp.module.field.Fields#getDataString(java.lang.String)
+	 * @deprecated The field getDataString method should be used directly
 	 */
 	@Deprecated
 	public String getDataString(String fieldName) {
@@ -128,6 +131,7 @@ public class Entity {
 	 * @param fieldName The field name
 	 * @param data the data to set
 	 * @see net.jc.beeerp.module.field.Fields#setData(java.lang.String, java.lang.Object)
+	 * @deprecated The field setData method should be used directly
 	 */
 	@Deprecated
 	public void setData(String fieldName, Object data) {
@@ -140,6 +144,7 @@ public class Entity {
 	 * @param fieldName The field name
 	 * @param data the data to set from it's string format
 	 * @see net.jc.beeerp.module.field.Fields#setDataString(java.lang.String, java.lang.String)
+	 * @deprecated The field setDataString method should be used directly
 	 */
 	@Deprecated
 	public void setDataString(String fieldName, String data) {

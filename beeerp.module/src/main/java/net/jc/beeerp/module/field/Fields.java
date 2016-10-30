@@ -9,9 +9,9 @@ public class Fields {
 	private Map<String, Field<?>> fieldsDataMap;
 
 	public Fields() {
-		fieldsDataMap = new LinkedHashMap<String, Field<?>>();
+		fieldsDataMap = new LinkedHashMap<>();
 	}
-	
+
 	/**
 	 * Get a field from it's field name
 	 * 
@@ -59,7 +59,7 @@ public class Fields {
 	 * @param data the data to set
 	 */
 	public void setData(String fieldName, Object data) {
-			getField(fieldName).setData(data);
+		getField(fieldName).setData(data);
 	}
 
 	/**
@@ -69,6 +69,6 @@ public class Fields {
 	 * @param data the data to set from it's string format
 	 */
 	public void setDataString(String fieldName, String data) {
-			getField(fieldName).setDataString(data);
+		getField(fieldName).setDataString(data);
 	}
 }

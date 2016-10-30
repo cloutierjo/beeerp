@@ -34,7 +34,11 @@ import net.jc.beeerp.module.field.Fields;
 @Controller
 @RequestMapping("/")
 public class ApplicationController {
-	final Logger log = LoggerFactory.getLogger(ApplicationController.class);
+
+	private static final String ATTRIBUTE_VALUE = "value";
+
+	private final Logger log = LoggerFactory.getLogger(ApplicationController.class);
+
 	private Orm orm = new Orm();
 
 	@Autowired
@@ -48,7 +52,7 @@ public class ApplicationController {
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
 		Entity entityValue = orm.get(entityDef.getTable(), entityDef.getEntity(), id);
 
-		model.addAttribute("value", entityValue);
+		model.addAttribute(ATTRIBUTE_VALUE, entityValue);
 
 		return getEntityForm(module,entity);
 	}
@@ -60,7 +64,7 @@ public class ApplicationController {
 		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
 		Entity entityValue = entityDef.getDefaultEntity();
-		model.addAttribute("value", entityValue);
+		model.addAttribute(ATTRIBUTE_VALUE, entityValue);
 
 		return getEntityForm(module,entity);
 	}
@@ -78,12 +82,12 @@ public class ApplicationController {
 		if (errors.isEmpty()) {
 			Integer newId = orm.add(entityDef.getTable(), entityValue);
 
-			model.addAttribute("value", entityValue);
+			model.addAttribute(ATTRIBUTE_VALUE, entityValue);
 			log.debug("postadd data: {}", param);
 			return String.format("redirect:/%s/%s/get/%s", module, entity, newId);
 		}
 
-		model.addAttribute("value", entityValue);
+		model.addAttribute(ATTRIBUTE_VALUE, entityValue);
 		model.addAttribute("errors", errors);
 		log.debug("postadd data-error: {}", param);
 
@@ -112,7 +116,7 @@ public class ApplicationController {
 			orm.update(entityDef.getTable(), entityValue);
 		}
 
-		model.addAttribute("value", entityValue);
+		model.addAttribute(ATTRIBUTE_VALUE, entityValue);
 		model.addAttribute("errors", errors);
 		log.debug("postupdate data: {}", param);
 
