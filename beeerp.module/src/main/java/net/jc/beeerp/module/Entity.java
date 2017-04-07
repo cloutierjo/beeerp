@@ -50,7 +50,7 @@ public class Entity {
 
 	private Field<?> newField(Class<?> fieldType, String fieldName)
 	{
-		Field<?> field = null;
+		Field<?> field;
 
 		switch (fieldType.getCanonicalName()) {
 		case "java.lang.Boolean":
@@ -111,7 +111,7 @@ public class Entity {
 	public Object getData(String fieldName) {
 		return fields.getData(fieldName);
 	}
-	
+
 	/**
 	 * Get the data from a specified field in it's string format
 	 * 

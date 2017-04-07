@@ -5,3 +5,7 @@
 rebel.xml
 infinitest.filters
 *.log
+**/bin
+**/build
+.gradle
+*.kate-swp

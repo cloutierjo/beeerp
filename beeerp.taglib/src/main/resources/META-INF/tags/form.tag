@@ -3,9 +3,9 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:set var="formEntity" value="${entity}" scope="request"  />
+<c:set var="formEntity" value="${entity}" scope="request" />
 <form method="post">
 	<jsp:doBody />
 	<input type="submit">
 </form>
-<c:set var="formEntity" value="" scope="request"  />
+<c:set var="formEntity" value="" scope="request" />
