@@ -1,0 +1,14 @@
+
+description = 'BeeErp - ORM'
+dependencies {
+    compile project(':beeerp.parentpom:beeerp.module')
+  
+    compile group: 'org.jooq', name: 'jooq', version:'3.6.2'
+    compile group: 'org.jooq', name: 'jooq-meta', version:'3.6.2'
+    compile group: 'org.jooq', name: 'jooq-codegen', version:'3.6.2'
+    compile group: 'postgresql', name: 'postgresql', version:'9.1-901-1.jdbc4'
+    
+    testCompile project(':beeerp.parentpom:beeerp.module.timesheet')
+    testCompile group: 'junit', name: 'junit', version:'4.10'
+}
+//DONE

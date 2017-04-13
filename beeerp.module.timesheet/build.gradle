@@ -1,0 +1,64 @@
+buildscript{
+  repositories {
+      mavenLocal()
+  }
+  dependencies {
+    classpath 'net.jcs:jboildown:0.1-SNAPSHOT'
+  }
+}
+
+plugins {
+    id 'nu.studer.jooq' version '2.0.0'
+}
+apply plugin: 'net.jcs.jboildown'
+
+description = 'BeeErp Module - time sheet'
+
+jooq {
+	version = '3.6.2'
+	edition = 'OSS'
+	beeerp(sourceSets.main) {
+       jdbc {
+           driver = 'org.postgresql.Driver'
+           url = 'jdbc:postgresql:beeerp'
+           user = 'postgres'
+           password = ''
+       }
+       generator {
+           name = 'org.jooq.util.DefaultGenerator'
+           database {
+               name = 'org.jooq.util.postgres.PostgresDatabase'
+               inputSchema = 'public'
+               includes = '.*'
+           }
+           generate {
+               interfaces = true
+               pojos = true
+           }
+           target {
+               packageName = 'com.logilibre.module.timesheet.jooq'
+           }
+       }
+   }
+}
+
+
+dependencies {
+    compile project(':beeerp.parentpom:beeerp.module')
+    
+    compile group: 'net.jcs', name: 'jboildown', version:'0.1-SNAPSHOT'
+    compile group: 'org.jooq', name: 'jooq-meta'
+    compile group: 'javax.validation', name: 'validation-api', version:'1.1.0.Final'
+    
+    compileOnly group: 'org.apache.tomcat', name: 'tomcat-jsp-api', version:'7.0.47'
+    
+    testCompile group: 'junit', name: 'junit', version:'4.10'
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.9.0'
+    testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.12'
+    
+    aspectpath project(':beeerp.parentpom:beeerp.module')
+    
+    jooqRuntime 'postgresql:postgresql:9.1-901-1.jdbc4'
+}
+
+// TODO simplify module build

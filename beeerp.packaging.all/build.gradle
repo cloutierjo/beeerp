@@ -1,0 +1,40 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://maven.eveoh.nl/content/repositories/releases"
+        }
+    }
+
+    dependencies {
+        classpath "nl.eveoh:gradle-aspectj:1.6"
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+project.ext {
+    aspectjVersion = '1.8.4'
+}
+
+allprojects  {
+  group = 'com.logilibre'
+  version = '0.0.1-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'aspectj'
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+  tasks.withType(JavaCompile) {
+  	options.encoding = 'UTF-8'
+  }
+
+  repositories {
+    jcenter()
+	mavenLocal()
+  }
+}
+
+// Manage integrationTest separate from IT

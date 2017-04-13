@@ -1,0 +1,14 @@
+rootProject.name = 'beeerp.packaging.all'
+include ':beeerp.parentpom:beeerp.module.biling'
+include ':beeerp.parentpom:beeerp.module.timesheet'
+include ':beeerp.parentpom:beeerp.module'
+include ':beeerp.parentpom:beeerp.orm'
+include ':beeerp.parentpom:beeerp.taglib'
+include ':beeerp.parentpom:beeerp.server'
+
+project(':beeerp.parentpom:beeerp.module.biling').projectDir = "$rootDir/../beeerp.module.biling" as File
+project(':beeerp.parentpom:beeerp.module.timesheet').projectDir = "$rootDir/../beeerp.module.timesheet" as File
+project(':beeerp.parentpom:beeerp.module').projectDir = "$rootDir/../beeerp.module" as File
+project(':beeerp.parentpom:beeerp.orm').projectDir = "$rootDir/../beeerp.orm" as File
+project(':beeerp.parentpom:beeerp.taglib').projectDir = "$rootDir/../beeerp.taglib" as File
+project(':beeerp.parentpom:beeerp.server').projectDir = "$rootDir/../beeerp.server" as File

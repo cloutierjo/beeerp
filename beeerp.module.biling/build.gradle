@@ -1,0 +1,7 @@
+
+description = 'BeeErp Module - Biling'
+dependencies {
+  runtime project(':beeerp.parentpom:beeerp.module')
+}
+
+//TODO review sometime, based on timesheet
