@@ -66,7 +66,12 @@ subprojects {
   }
   eclipse {
     classpath {
-        plusConfigurations.add configurations.integTestCompile
+      plusConfigurations.add configurations.integTestCompile
+    }
+    project {
+      buildCommand 'org.eclipse.ajdt.core.ajbuilder'
+      natures 'org.eclipse.ajdt.ui.ajnature'
+      buildCommands.removeAll { it.name == 'org.eclipse.jdt.core.javabuilder' }
     }
   }
 }
