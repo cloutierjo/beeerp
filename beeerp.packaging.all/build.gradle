@@ -25,6 +25,8 @@ allprojects  {
 
 subprojects {
   apply plugin: 'aspectj'
+  apply plugin: 'eclipse'
+  
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
   tasks.withType(JavaCompile) {
@@ -34,6 +36,38 @@ subprojects {
   repositories {
     jcenter()
 	mavenLocal()
+  }
+  
+  // integration test config
+  sourceSets {
+    integTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+  }
+  configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+  }
+  task integTest(type: Test) {
+    testClassesDir = sourceSets.integTest.output.classesDir
+    classpath = sourceSets.integTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+  }
+  check.dependsOn integTest
+  integTest.mustRunAfter test
+  
+  tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+  }
+  eclipse {
+    classpath {
+        plusConfigurations.add configurations.integTestCompile
+    }
   }
 }
 
