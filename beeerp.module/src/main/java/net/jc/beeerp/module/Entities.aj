@@ -63,37 +63,4 @@ privileged aspect Entities {
 	public Object PropertiesAccessibleEntity.getData(String fieldName, Field.Safety safety) {
 		return 1;
 	}
-
-//	public Integer WageStates.getId() {
-//		return id;
-//	}
-//
-//	public Integer WageStates.getWeeklyWage() {
-//		return weeklyWage;
-//	}
-//
-//	public Double WageStates.getHollidayRate() {
-//		return hollidayRate;
-//	}
-//
-//	public Double WageStates.getNormalWeekTime() {
-//		return normalWeekTime;
-//	}
-//
-//	public void WageStates.setId(Integer id) {
-//		this.id = id;
-//	}
-//
-//	public void WageStates.setWeeklyWage(Integer weeklyWage) {
-//		this.weeklyWage = weeklyWage;
-//	}
-//
-//	public void WageStates.setHollidayRate(Double hollidayRate) {
-//		this.hollidayRate = hollidayRate;
-//	}
-//
-//	public void WageStates.setNormalWeekTime(Double normalWeekTime) {
-//		this.normalWeekTime = normalWeekTime;
-//	}
-
 }
