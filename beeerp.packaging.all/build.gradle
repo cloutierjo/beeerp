@@ -71,6 +71,18 @@ subprojects {
   tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
   }
+  
+  
+  sonarqube {
+    properties {
+      properties["sonar.tests"] += sourceSets.integTest.allSource.srcDirs
+      properties["sonar.java.test.binaries"] += sourceSets.integTest.output.classesDir
+      properties["sonar.java.test.libraries"] += sourceSets.integTest.compileClasspath
+      property "sonar.jacoco.reportPaths", "$buildDir/jacoco/jacocoIntegTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
+      property "sonar.junit.reportsPath", "$buildDir/test-results/test,$buildDir/test-results/integTest"
+    }
+  }
+  
   eclipse {
     classpath {
       plusConfigurations.add configurations.integTestCompile
