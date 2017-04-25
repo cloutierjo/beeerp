@@ -72,7 +72,9 @@ subprojects {
   check.dependsOn integTest
   integTest.mustRunAfter test
   
-  
+  tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}")
+  }
   
   
   sonarqube {
@@ -81,6 +83,7 @@ subprojects {
       property "sonar.java.test.binaries" , sourceSets.integTest.output.classesDir
       property "sonar.java.test.libraries" , filterClasspath(sourceSets.integTest.compileClasspath)
       property "sonar.jacoco.reportPaths", "$buildDir/jacoco/jacocoIntegTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
+      property "sonar.junit.reportsPath", "$buildDir/test-results"
     }
   }
   
