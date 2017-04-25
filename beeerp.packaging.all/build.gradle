@@ -75,7 +75,7 @@ subprojects {
   
   sonarqube {
     properties {
-      property "sonar.tests" , sourceSets.integTest.allSource.srcDirs
+      property "sonar.tests" , sourceSets.integTest.allSource.srcDirs.findAll { it.exists() }
       property "sonar.java.test.binaries" , sourceSets.integTest.output.classesDir
       property "sonar.java.test.libraries" , sourceSets.integTest.compileClasspath
       property "sonar.jacoco.reportPaths", "$buildDir/jacoco/jacocoIntegTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
