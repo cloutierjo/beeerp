@@ -28,6 +28,10 @@ allprojects  {
   version = '0.0.1-SNAPSHOT'
 }
 
+def filterClasspath(classpath) {
+    classpath.filter { (it.file && !it.name.endsWith('.war')) || (it.directory && it.list().length != 0) }
+}
+
 subprojects {
   apply plugin: 'aspectj'
   apply plugin: 'eclipse'
@@ -77,7 +81,7 @@ subprojects {
     properties {
       property "sonar.tests" , sourceSets.integTest.allSource.srcDirs.findAll { it.exists() }
       property "sonar.java.test.binaries" , sourceSets.integTest.output.classesDir
-      property "sonar.java.test.libraries" , sourceSets.integTest.compileClasspath
+      property "sonar.java.test.libraries" , filterClasspath(sourceSets.integTest.compileClasspath)
       property "sonar.jacoco.reportPaths", "$buildDir/jacoco/jacocoIntegTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
       property "sonar.junit.reportsPath", "$buildDir/test-results/test,$buildDir/test-results/integTest"
     }
