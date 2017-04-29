@@ -8,15 +8,18 @@ import java.util.List;
  */
 public class ELFunction
 {
-    /**
-     * @see List#contains
-     * @param array The array to check values
-     * @param item The item to check
-     * @return True if the item is in the array
-     */
-    public static boolean contains(Object[] array, Object item)
-    {
-    	List<Object> list = Arrays.asList(array);
-        return list.contains(item);
-    }
+	private ELFunction() {
+	};
+
+	/**
+	 * @see List#contains
+	 * @param array The array to check values
+	 * @param item The item to check
+	 * @return True if the item is in the array
+	 */
+	public static boolean contains(Object[] array, Object item)
+	{
+		List<Object> list = Arrays.asList(array);
+		return list.contains(item);
+	}
 }
