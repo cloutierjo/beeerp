@@ -3,6 +3,8 @@ package net.jc.beeerp.module;
 import org.jooq.Table;
 import org.jooq.UpdatableRecord;
 
+import net.jc.beeerp.module.exception.ModuleException;
+
 public class EntityDefinition<R extends UpdatableRecord<R>, E extends Entity> {
 
 	private Table<R> table;
@@ -25,7 +27,7 @@ public class EntityDefinition<R extends UpdatableRecord<R>, E extends Entity> {
 		try {
 			return entity.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
-			throw new RuntimeException(e);	// should never happen
+			throw new ModuleException(e);	// should never happen
 		}
 	}
 

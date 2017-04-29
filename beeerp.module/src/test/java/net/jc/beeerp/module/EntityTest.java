@@ -23,6 +23,7 @@ public class EntityTest {
 
 	@Mock
 	private Fields fields;
+	@SuppressWarnings("rawtypes")
 	@Mock
 	private Field field;
 

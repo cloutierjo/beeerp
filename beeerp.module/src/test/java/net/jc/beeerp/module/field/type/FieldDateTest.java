@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 
 import net.jc.beeerp.it.module.testdata.TestEntity;
-import net.jc.beeerp.module.field.exception.InvalidDataValueException;
+import net.jc.beeerp.module.exception.InvalidDataValueException;
 
 import org.junit.Before;
 import org.junit.Test;

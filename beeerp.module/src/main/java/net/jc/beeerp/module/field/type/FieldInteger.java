@@ -1,8 +1,8 @@
 package net.jc.beeerp.module.field.type;
 
 import net.jc.beeerp.module.Entity;
+import net.jc.beeerp.module.exception.InvalidDataValueException;
 import net.jc.beeerp.module.field.Field;
-import net.jc.beeerp.module.field.exception.InvalidDataValueException;
 
 public class FieldInteger extends Field<Integer> {
 

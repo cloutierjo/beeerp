@@ -1,4 +1,4 @@
-package net.jc.beeerp.module.field.exception;
+package net.jc.beeerp.module.exception;
 
 public class InvalidDataValueException extends RuntimeException {
 
