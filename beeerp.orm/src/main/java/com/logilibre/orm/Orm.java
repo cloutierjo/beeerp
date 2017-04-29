@@ -23,7 +23,7 @@ public class Orm {
 			Field<Integer> fieldId = getFieldId(table);
 			return sql.selectFrom(table).where(fieldId.equal(id)).fetchAnyInto(type);
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new OrmException(e);
 		}
 	}
 
@@ -37,7 +37,7 @@ public class Orm {
 			Field<Integer> fieldId = getFieldId(table);
 			return newRecord.getValue(fieldId);
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new OrmException(e);
 		}
 	}
 
@@ -48,7 +48,7 @@ public class Orm {
 			UpdatableRecord<?> record = sql.newRecord(table, entity);
 			record.update();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new OrmException(e);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class Orm {
 			Field<Integer> fieldId = getFieldId(table);
 			sql.delete(table).where(fieldId.equal(id)).execute();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new OrmException(e);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class Orm {
 			Field<Integer> fieldId = (Field<Integer>) field;
 			return fieldId;
 		}
-		throw new RuntimeException("no 'id' field on this entity");
+		throw new OrmException("no 'id' field on this entity");
 	}
 
 	private Connection getConnection() {
@@ -79,14 +79,14 @@ public class Orm {
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
+			throw new OrmException(e);
 		}
 
 		Connection conn;
 		try {
 			conn = DriverManager.getConnection(url, userName, password);
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new OrmException(e);
 		}
 		return conn;
 	}
