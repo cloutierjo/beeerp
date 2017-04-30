@@ -46,7 +46,7 @@ public class ApplicationController {
 
 	@RequestMapping(value = "/{module}/{entity}/get/{id}", method = RequestMethod.GET)
 	public String get(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model) {
-		log.debug("get '{}/{}/{}' entity", module,entity, id);
+		logDebug("get", module, entity, id);
 
 		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
@@ -59,7 +59,7 @@ public class ApplicationController {
 
 	@RequestMapping(value = "/{module}/{entity}/add", method = RequestMethod.GET)
 	public String getadd(@PathVariable String module, @PathVariable String entity, ModelMap model) {
-		log.debug("getadd '{}/{}' entity", module, entity);
+		logDebug("getadd", module, entity);
 
 		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
@@ -71,7 +71,7 @@ public class ApplicationController {
 
 	@RequestMapping(value = "/{module}/{entity}/add", method = RequestMethod.POST)
 	public String postadd(@PathVariable String module, @PathVariable String entity, ModelMap model, @RequestParam Map<String, String> param) {
-		log.debug("postadd '{}/{}' entity", module, entity);
+		logDebug("postadd", module, entity);
 
 		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
@@ -96,14 +96,14 @@ public class ApplicationController {
 
 	@RequestMapping(value = "/{module}/{entity}/update/{id}", method = RequestMethod.GET)
 	public String getupdate(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model) {
-		log.debug("getupdate '{}/{}/{}' entity", module, entity, id);
+		logDebug("getupdate", module, entity, id);
 		return get(module, entity, id, model);
 	}
 
 	@RequestMapping(value = "/{module}/{entity}/update/{id}", method = RequestMethod.POST)
 	public String postupdate(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model,
 			@RequestParam Map<String, String> param) {
-		log.debug("postupdate '{}' entity", id);
+		logDebug("postupdate", module, entity, id);
 
 		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
@@ -125,14 +125,14 @@ public class ApplicationController {
 
 	@RequestMapping(value = "/{module}/{entity}/delete/{id}", method = RequestMethod.GET)
 	public String getdelete(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id, ModelMap model) {
-		log.debug("getdelete '{}/{}/{}' entity", module, entity, id);
+		logDebug("getdelete", module, entity, id);
 		return get(module, entity, id, model);
 	}
 
 	@RequestMapping(value = "/{module}/{entity}/delete/{id}", method = RequestMethod.POST)
 	public String postdelete(@PathVariable String module, @PathVariable String entity, @PathVariable Integer id,
 			HttpServletResponse httpServletResponse) {
-		log.debug("postdelete '{}/{}/{}' entity", module, entity, id);
+		logDebug("postdelete", module, entity, id);
 
 		ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
@@ -147,7 +147,7 @@ public class ApplicationController {
 				return entity;
 			}
 		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
+			throw new ServerException(e);
 		}
 		return "index";
 	}
@@ -175,5 +175,29 @@ public class ApplicationController {
 			log.debug("validation err:{}", constraintViolation);
 		}
 		return validation;
+	}
+
+	private void logDebug(String action, String module, String entity) {
+		if (log.isDebugEnabled()) {
+			ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
+			EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
+			if (entityDef == null) {
+				entity = "";
+			}
+
+			log.debug("{} '{}/{}' entity", action, moduleDefinition.getName(), entity);
+		}
+	}
+
+	private void logDebug(String action, String module, String entity, Integer id) {
+		if (log.isDebugEnabled()) {
+			ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
+			EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
+			if (entityDef == null) {
+				entity = "";
+			}
+
+			log.debug("{} '{}/{}/{}' entity", action, moduleDefinition.getName(), entity, id);
+		}
 	}
 }
