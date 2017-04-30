@@ -10,7 +10,7 @@ public class ELFunction
 {
 	private ELFunction() {
 		throw new IllegalAccessError("Utility class");
-	};
+	}
 
 	/**
 	 * @see List#contains
