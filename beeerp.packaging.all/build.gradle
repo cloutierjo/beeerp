@@ -77,9 +77,11 @@ subprojects {
     reports.junitXml.destination = file("$buildDir/test-results")
   }
   
+  println "sonar.tests" + (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
   sonarqube {
     properties {
-      property "sonar.tests" , sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() }
+  println "sonar.tests" + (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
+      property "sonar.tests" , (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
       property "sonar.java.test.binaries" , sourceSets.integTest.output.classesDir
       property "sonar.java.test.libraries" , filterClasspath(sourceSets.integTest.compileClasspath)
       property "sonar.jacoco.reportPaths", "$buildDir/jacoco/jacocoIntegTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
