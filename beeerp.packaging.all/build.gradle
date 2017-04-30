@@ -78,7 +78,7 @@ subprojects {
   }
   
   println "sonar.tests " + (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
-  println "sonar.java.test.binaries " + sourceSets.integTest.output.classesDir +","+ sourceSets.test.output.classesDir
+  println ""+sourceSets.integTest.output.classesDir +","+ sourceSets.test.output.classesDir
   println "sonar.java.test.libraries " + (filterClasspath(sourceSets.integTest.compileClasspath))
   sonarqube {
     properties {
@@ -87,7 +87,7 @@ subprojects {
   println "sonar.java.test.libraries " + (filterClasspath(sourceSets.integTest.compileClasspath))
   
       property "sonar.tests" , (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
-      property "sonar.java.test.binaries" , sourceSets.integTest.output.classesDir +","+ sourceSets.test.output.classesDir
+      property "sonar.java.test.binaries" , ""+sourceSets.integTest.output.classesDir +","+ sourceSets.test.output.classesDir
       property "sonar.java.test.libraries" , filterClasspath(sourceSets.integTest.compileClasspath)
       property "sonar.jacoco.reportPaths", "$buildDir/jacoco/jacocoIntegTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
       property "sonar.junit.reportsPath", "$buildDir/test-results"
