@@ -76,7 +76,7 @@ subprojects {
     reports.html.destination = file("${reporting.baseDir}/${name}")
     reports.junitXml.destination = file("$buildDir/test-results")
   }
-  
+  println sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() }
   
   sonarqube {
     properties {
