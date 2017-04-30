@@ -179,25 +179,27 @@ public class ApplicationController {
 
 	private void logDebug(String action, String module, String entity) {
 		if (log.isDebugEnabled()) {
+			String entityName = "";
 			ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
 			EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
-			if (entityDef == null) {
-				entity = "";
+			if (entityDef != null) {
+				entityName = entity;
 			}
 
-			log.debug("{} '{}/{}' entity", action, moduleDefinition.getName(), entity);
+			log.debug("{} '{}/{}' entity", action, moduleDefinition.getName(), entityName);
 		}
 	}
 
 	private void logDebug(String action, String module, String entity, Integer id) {
 		if (log.isDebugEnabled()) {
+			String entityName = "";
 			ModuleDefinition moduleDefinition = new ModuleRegistry().get(module);
 			EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
-			if (entityDef == null) {
-				entity = "";
+			if (entityDef != null) {
+				entityName = entity;
 			}
 
-			log.debug("{} '{}/{}/{}' entity", action, moduleDefinition.getName(), entity, id);
+			log.debug("{} '{}/{}/{}' entity", action, moduleDefinition.getName(), entityName, id);
 		}
 	}
 }
