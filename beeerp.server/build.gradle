@@ -44,4 +44,3 @@ task('AppWarBeforeIntegrationTest', type: AppBeforeIntegrationTestTask) {
 task('AppWarAfterIntegrationTest', type: AppAfterIntegrationTestTask) {
     integrationTestTask 'integTest'
 }
-// manage jacoco or other 

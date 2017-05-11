@@ -11,4 +11,3 @@ dependencies {
     testCompile project(':beeerp.parentpom:beeerp.module.timesheet')
     testCompile group: 'junit', name: 'junit', version:'4.10'
 }
-//DONE

@@ -1,109 +1,100 @@
 buildscript {
-    repositories {
-        maven {
-            url "https://maven.eveoh.nl/content/repositories/releases"
-        }
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
+	repositories {
+		maven {
+			url "https://maven.eveoh.nl/content/repositories/releases"
+		}
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
 
-    dependencies {
-        classpath "nl.eveoh:gradle-aspectj:1.6"
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.3"
-    }
+	dependencies {
+		classpath "nl.eveoh:gradle-aspectj:1.6"
+		classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.3"
+	}
 }
 
 repositories {
-    jcenter()
+	jcenter()
 }
 
 project.ext {
-    aspectjVersion = '1.8.4'
+	aspectjVersion = '1.8.4'
 }
 apply plugin: "org.sonarqube"
 
-allprojects  {
-  group = 'com.logilibre'
-  version = '0.0.1-SNAPSHOT'
+allprojects	{
+	group = 'com.logilibre'
+	version = '0.0.1-SNAPSHOT'
 }
 
 def filterClasspath(classpath) {
-    classpath.filter { (it.file && !it.name.endsWith('.war')) || (it.directory && it.list().length != 0) }
+	classpath.filter { (it.file && !it.name.endsWith('.war')) || (it.directory && it.list().length != 0) }
 }
 
 subprojects {
-  apply plugin: 'aspectj'
-  apply plugin: 'eclipse'
-  apply plugin: 'jacoco'
-  
-  sourceCompatibility = 1.8
-  targetCompatibility = 1.8
-  tasks.withType(JavaCompile) {
-  	options.encoding = 'UTF-8'
-  }
-
-  repositories {
-    jcenter()
-	mavenLocal()
-  }
-  
-  // integration test config
-  sourceSets {
-    integTest {
-        java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDir file('src/integrationTest/java')
-        }
-        resources.srcDir file('src/integrationTest/resources')
-    }
-  }
-  configurations {
-    integrationTestCompile.extendsFrom testCompile
-    integrationTestRuntime.extendsFrom testRuntime
-  }
-  task integTest(type: Test) {
-    testClassesDir = sourceSets.integTest.output.classesDir
-    classpath = sourceSets.integTest.runtimeClasspath
-    outputs.upToDateWhen { false }
-  }
-  
-  check.dependsOn integTest
-  integTest.mustRunAfter test
-  
-  tasks.withType(Test) {
-    reports.html.destination = file("${reporting.baseDir}/${name}")
-    reports.junitXml.destination = file("$buildDir/test-results")
-  }
-  
-  println "sonar.tests " + (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
-  println "sonar.java.test.binaries "+files(sourceSets.integTest.output.classesDir, sourceSets.test.output.classesDir).findAll { it.exists() }
-  println "sonar.java.test.libraries " + (filterClasspath(sourceSets.integTest.compileClasspath))
-  sonarqube {
-    properties {
-  println "sonar.tests " + (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
-  println "sonar.java.test.binaries " + files(sourceSets.integTest.output.classesDir, sourceSets.test.output.classesDir).findAll { it.exists() }
-  println "sonar.java.test.libraries " + (filterClasspath(sourceSets.integTest.compileClasspath))
-  
-      property "sonar.tests" , (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
-      property "sonar.java.test.binaries" , files(sourceSets.integTest.output.classesDir, sourceSets.test.output.classesDir).findAll { it.exists() }
-      property "sonar.java.test.libraries" , filterClasspath(sourceSets.integTest.compileClasspath)
-      property "sonar.jacoco.reportPaths", "$buildDir/jacoco/jacocoIntegTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
-      property "sonar.junit.reportsPath", "$buildDir/test-results"
-    }
-  }
-  
-  eclipse {
-    classpath {
-      plusConfigurations.add configurations.integTestCompile
-    }
-    project {
-      buildCommand 'org.eclipse.ajdt.core.ajbuilder'
-      natures 'org.eclipse.ajdt.ui.ajnature'
-      buildCommands.removeAll { it.name == 'org.eclipse.jdt.core.javabuilder' }
-    }
-  }
+	apply plugin: 'aspectj'
+	apply plugin: 'eclipse'
+	apply plugin: 'jacoco'
+	
+	repositories {
+		jcenter()
+		mavenLocal()
+	}
+	
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+	tasks.withType(JavaCompile) {
+		options.encoding = 'UTF-8'
+	}
+	
+	// integration test config
+	sourceSets {
+		integTest {
+			java {
+				compileClasspath += main.output + test.output
+				runtimeClasspath += main.output + test.output
+				srcDir file('src/integrationTest/java')
+			}
+			resources.srcDir file('src/integrationTest/resources')
+		}
+	}
+	configurations {
+		integrationTestCompile.extendsFrom testCompile
+		integrationTestRuntime.extendsFrom testRuntime
+	}
+	task integTest(type: Test) {
+		testClassesDir = sourceSets.integTest.output.classesDir
+		classpath = sourceSets.integTest.runtimeClasspath
+		outputs.upToDateWhen { false }
+	}
+	
+	check.dependsOn integTest
+	integTest.mustRunAfter test
+	
+	tasks.withType(Test) {
+		reports.html.destination = file("${reporting.baseDir}/${name}")
+		reports.junitXml.destination = file("$buildDir/test-results")
+	}
+	
+	sonarqube {
+		properties {
+			property "sonar.tests" , (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
+			property "sonar.java.test.binaries" , files(sourceSets.integTest.output.classesDir, sourceSets.test.output.classesDir).findAll { it.exists() }
+			property "sonar.java.test.libraries" , filterClasspath(sourceSets.integTest.compileClasspath)
+			property "sonar.jacoco.reportPaths", "$buildDir/jacoco/jacocoIntegTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
+			property "sonar.junit.reportsPath", "$buildDir/test-results"
+		}
+	}
+	
+	eclipse {
+		classpath {
+			plusConfigurations.add configurations.integTestCompile
+		}
+		project {
+			buildCommand 'org.eclipse.ajdt.core.ajbuilder'
+			natures 'org.eclipse.ajdt.ui.ajnature'
+			buildCommands.removeAll { it.name == 'org.eclipse.jdt.core.javabuilder' }
+		}
+	}
 }
-
-// Manage integrationTest separate from IT
