@@ -44,7 +44,7 @@ jooq {
 
 
 dependencies {
-    compile project(':beeerp.parentpom:beeerp.module')
+    compile project(':beeerp.module')
     
     compile group: 'net.jcs', name: 'jboildown', version:'0.1-SNAPSHOT'
     compile group: 'org.jooq', name: 'jooq-meta'
@@ -56,7 +56,7 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-all', version:'1.9.0'
     testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.12'
     
-    aspectpath project(':beeerp.parentpom:beeerp.module')
+    aspectpath project(':beeerp.module')
     
     jooqRuntime 'postgresql:postgresql:9.1-901-1.jdbc4'
 }

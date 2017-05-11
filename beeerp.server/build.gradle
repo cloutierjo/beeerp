@@ -13,10 +13,10 @@ apply plugin: 'org.akhikhl.gretty'
 
 description = 'BeeErp - Server'
 dependencies {
-    compile project(':beeerp.parentpom:beeerp.taglib')
-    compile project(':beeerp.parentpom:beeerp.module.timesheet')
-    compile project(':beeerp.parentpom:beeerp.module')
-    compile project(':beeerp.parentpom:beeerp.orm')
+    compile project(':beeerp.taglib')
+    compile project(':beeerp.module.timesheet')
+    compile project(':beeerp.module')
+    compile project(':beeerp.orm')
   
     compile group: 'org.springframework', name: 'spring-core', version:'4.1.7.RELEASE'
     compile group: 'org.springframework', name: 'spring-web', version:'4.1.7.RELEASE'

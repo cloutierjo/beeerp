@@ -1,7 +1,7 @@
 description = 'BeeErp - Module'
 
 dependencies {
-    compile project(':beeerp.parentpom:beeerp.taglib')
+    compile project(':beeerp.taglib')
     
     compile group: 'org.jooq', name: 'jooq', version:'3.6.2'
     
