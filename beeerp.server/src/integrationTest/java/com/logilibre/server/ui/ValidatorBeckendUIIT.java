@@ -70,4 +70,23 @@ public class ValidatorBeckendUIIT extends UITestBase {
 		inputTime = driver.findElement(By.name("time"));
 		assertNotNull(inputTime.getAttribute("value"));
 	}
+
+	@Test
+	public void addWrongType_showError() throws Exception {
+		driver.get(BASE_TEST_URL + "/timesheet/weekly_time/add");
+		waitPageLoad();
+		WebElement inputTime = driver.findElement(By.name("time"));
+		inputTime.clear();
+		inputTime.sendKeys("2d.254");
+
+		inputTime.submit();
+		waitPageLoad();
+		inputTime = driver.findElement(By.name("time"));
+		assertEquals("2d.254", inputTime.getAttribute("value"));
+
+		List<WebElement> errorDisplay = driver.findElements(By.cssSelector("strong.error"));
+		assertEquals(1, errorDisplay.size());
+	}
+
+	// TODO: add test for all field type one theire wrong value shown back on error
 }

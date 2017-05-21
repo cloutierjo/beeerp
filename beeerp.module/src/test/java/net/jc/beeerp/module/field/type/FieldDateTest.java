@@ -4,11 +4,10 @@ import static org.junit.Assert.*;
 
 import java.sql.Date;
 
-import net.jc.beeerp.it.module.testdata.TestEntity;
-import net.jc.beeerp.module.exception.InvalidDataValueException;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import net.jc.beeerp.it.module.testdata.TestEntity;
 
 public class FieldDateTest {
 
@@ -19,7 +18,7 @@ public class FieldDateTest {
 
 	@Before
 	public void setUp() throws Exception {
-		 fieldDate = new FieldDate(FIELD_NAME, new TestEntity());
+		fieldDate = new FieldDate(FIELD_NAME, new TestEntity());
 	}
 
 	@Test
@@ -44,9 +43,10 @@ public class FieldDateTest {
 		assertEquals(TEST_VALUE, fieldDate.getData());
 	}
 
-	@Test(expected = InvalidDataValueException.class)
+	@Test
 	public final void setDataStringToWrongValue() {
-		fieldDate.setDataString("asdasd");
+		fieldDate.setDataString("wrong");
+		assertFalse(fieldDate.isValid());
 	}
 
 	@Test

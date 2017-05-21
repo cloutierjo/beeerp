@@ -1,6 +1,7 @@
 package net.jc.beeerp.module;
 
 import java.lang.reflect.Modifier;
+import java.util.Map;
 
 import net.jc.beeerp.module.field.Field;
 import net.jc.beeerp.module.field.Fields;
@@ -13,6 +14,7 @@ import net.jc.beeerp.module.field.type.FieldInteger;
  *	Represent a simple entity that contain fields
  */
 public class Entity {
+
 	private final Fields fields;
 
 	/**
@@ -153,5 +155,13 @@ public class Entity {
 
 	public void setDefaultValue() {
 		// default implementation do nothing
+	}
+
+	public boolean isValid() {
+		return fields.isValid();
+	}
+
+	public Map<String, InputError> getErrors() {
+		return fields.getErrors();
 	}
 }

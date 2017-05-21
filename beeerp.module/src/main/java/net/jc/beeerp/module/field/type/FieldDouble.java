@@ -11,7 +11,7 @@ public class FieldDouble extends Field<Double> {
 	}
 
 	@Override
-	public void setDataString(String data) {
+	public void setDataStringInner(String data) {
 		if (data == null || data.isEmpty() || "null".equals(data)) {
 			setDataType(0.);
 			return;
@@ -21,7 +21,7 @@ public class FieldDouble extends Field<Double> {
 			setDataType(Double.valueOf(data));
 		}catch(Exception e){
 			throw new InvalidDataValueException(
-					"Le format de donnée entrée ne correspond pas avec le type de champ (int): "
+					"Le format de donnée entrée ne correspond pas avec le type de champ (double): "
 							+ data, e);
 		}
 	}

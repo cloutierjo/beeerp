@@ -1,11 +1,11 @@
 package net.jc.beeerp.module.field.type;
 
 import static org.junit.Assert.*;
-import net.jc.beeerp.it.module.testdata.TestEntity;
-import net.jc.beeerp.module.exception.InvalidDataValueException;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import net.jc.beeerp.it.module.testdata.TestEntity;
 
 public class FieldIntegerTest {
 
@@ -16,7 +16,7 @@ public class FieldIntegerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		 fieldInteger = new FieldInteger(FIELD_NAME, new TestEntity());
+		fieldInteger = new FieldInteger(FIELD_NAME, new TestEntity());
 	}
 
 	@Test
@@ -41,9 +41,10 @@ public class FieldIntegerTest {
 		assertEquals(TEST_VALUE, fieldInteger.getData());
 	}
 
-	@Test(expected = InvalidDataValueException.class)
+	@Test
 	public final void setDataStringToWrongValue() {
-		fieldInteger.setDataString("asdasd");
+		fieldInteger.setDataString("wrong");
+		assertFalse(fieldInteger.isValid());
 	}
 
 	@Test

@@ -22,7 +22,7 @@ public class FieldBool extends Field<Boolean> {
 	}
 
 	@Override
-	public void setDataString(String data) {
+	public void setDataStringInner(String data) {
 		if ("on".equalsIgnoreCase(data) || "true".equalsIgnoreCase(data)
 				|| "yes".equalsIgnoreCase(data)) {
 			setDataType(Boolean.TRUE);

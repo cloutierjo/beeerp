@@ -11,7 +11,7 @@ public class FieldInteger extends Field<Integer> {
 	}
 
 	@Override
-	public void setDataString(String data) {
+	public void setDataStringInner(String data) {
 		if (data == null || data.isEmpty() || "null".equals(data)) {
 			setDataType(0);
 			return;

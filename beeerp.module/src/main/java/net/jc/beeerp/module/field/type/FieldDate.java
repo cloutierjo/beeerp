@@ -13,7 +13,7 @@ public class FieldDate extends Field<Date> {
 	}
 
 	@Override
-	public void setDataString(String data) {
+	public void setDataStringInner(String data) {
 		if (data == null || data.isEmpty() || "null".equals(data)) {
 			setDataType(null);
 			return;

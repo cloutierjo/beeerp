@@ -36,5 +36,4 @@ public class UITestBase {
 		new WebDriverWait(driver, 10).until((WebDriver dr) -> dr.findElement(By.id("footer")));
 		removeQAReadyTag();// workarround not-blocking issue with selenium3 and marionette driver on form submit.
 	}
-
 }

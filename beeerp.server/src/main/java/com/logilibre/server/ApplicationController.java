@@ -1,17 +1,11 @@
 package com.logilibre.server;
 
 import java.net.MalformedURLException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +31,7 @@ public class ApplicationController {
 
 	private static final String ATTRIBUTE_VALUE = "value";
 
-	private final Logger log = LoggerFactory.getLogger(ApplicationController.class);
+	private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);
 
 	private Orm orm = new Orm();
 
@@ -77,9 +71,8 @@ public class ApplicationController {
 		EntityDefinition<?, ?> entityDef = moduleDefinition.getEntity(entity);
 		Entity entityValue = entityDef.getEmptyEntity();
 		updateEntity(param, entityValue);
-		Map<String, ConstraintViolation<Entity>> errors = validateEntity(entityValue);
 
-		if (errors.isEmpty()) {
+		if (entityValue.isValid()) {
 			Integer newId = orm.add(entityDef.getTable(), entityValue);
 
 			model.addAttribute(ATTRIBUTE_VALUE, entityValue);
@@ -88,7 +81,6 @@ public class ApplicationController {
 		}
 
 		model.addAttribute(ATTRIBUTE_VALUE, entityValue);
-		model.addAttribute("errors", errors);
 		log.debug("postadd data-error: {}", param);
 
 		return getEntityForm(module, entity);
@@ -110,14 +102,12 @@ public class ApplicationController {
 		Entity entityValue = orm.get(entityDef.getTable(), entityDef.getEntity(), id);
 
 		updateEntity(param, entityValue);
-		Map<String, ConstraintViolation<Entity>> errors = validateEntity(entityValue);
 
-		if (errors.isEmpty()) {
+		if (entityValue.isValid()) {
 			orm.update(entityDef.getTable(), entityValue);
 		}
 
 		model.addAttribute(ATTRIBUTE_VALUE, entityValue);
-		model.addAttribute("errors", errors);
 		log.debug("postupdate data: {}", param);
 
 		return getEntityForm(module,entity);
@@ -162,19 +152,6 @@ public class ApplicationController {
 				field.setDataString(paramValue);
 			}
 		}
-	}
-
-	private Map<String, ConstraintViolation<Entity>> validateEntity(Entity entity) {
-		ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
-		Validator validator = vf.getValidator();
-
-		Set<ConstraintViolation<Entity>> validate = validator.validate(entity);
-		Map<String, ConstraintViolation<Entity>> validation = new HashMap<>(validate.size());
-		for (ConstraintViolation<Entity> constraintViolation : validate) {
-			validation.put(constraintViolation.getPropertyPath().toString(), constraintViolation);
-			log.debug("validation err:{}", constraintViolation);
-		}
-		return validation;
 	}
 
 	private void logDebug(String action, String module, String entity) {

@@ -1,8 +1,11 @@
 package net.jc.beeerp.module.field;
 
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import net.jc.beeerp.module.InputError;
 
 public class Fields {
 
@@ -70,5 +73,23 @@ public class Fields {
 	 */
 	public void setDataString(String fieldName, String data) {
 		getField(fieldName).setDataString(data);
+	}
+
+	public boolean isValid() {
+		for (Field<?> field : fieldsDataMap.values()) {
+			if (!field.isValid()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public Map<String, InputError> getErrors() {
+		Map<String, InputError> errors = new HashMap<>();
+		for (Field<?> field : fieldsDataMap.values()) {
+			InputError error = field.getError();
+			errors.put(field.getName(), error);
+		}
+		return errors;
 	}
 }
