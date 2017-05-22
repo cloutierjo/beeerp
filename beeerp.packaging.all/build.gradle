@@ -82,7 +82,7 @@ subprojects {
 			property "sonar.tests" , (sourceSets.integTest.allSource.srcDirs.findAll { it.exists() } + sourceSets.test.allSource.srcDirs.findAll { it.exists() })
 			property "sonar.java.test.binaries" , files(sourceSets.integTest.output.classesDir, sourceSets.test.output.classesDir).findAll { it.exists() }
 			property "sonar.java.test.libraries" , filterClasspath(sourceSets.integTest.compileClasspath)
-			property "sonar.jacoco.reportPaths", "$buildDir/jacoco/integTest.exec,$buildDir/jacoco/test.exec,$buildDir/jacoco/AppWarBeforeIntegrationTest.exec"
+			property "sonar.jacoco.reportPaths", "$buildDir/jacoco/integTest.exec,$buildDir/jacoco/test.exec,$buildDir/../../beeerp.server/build/jacoco/AppWarBeforeIntegrationTest.exec"
 			property "sonar.junit.reportsPath", "$buildDir/test-results"
 		}
 	}
