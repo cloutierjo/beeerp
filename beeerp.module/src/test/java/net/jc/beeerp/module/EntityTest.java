@@ -82,4 +82,8 @@ public class EntityTest {
 		assertNotNull(entity);
 	}
 
+	@Test(expected = UnsupportedOperationException.class)
+	public void getIdNotImplementedByDefaut() throws Exception {
+		entity.getId();
+	}
 }

@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import net.jc.beeerp.it.module.testdata.TestEntity;
+import net.jc.beeerp.module.testdata.TestEntity;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EntityDefinitionTest<R extends UpdatableRecord<R>> {

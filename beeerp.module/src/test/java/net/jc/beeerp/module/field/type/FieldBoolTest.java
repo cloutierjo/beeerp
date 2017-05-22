@@ -1,10 +1,11 @@
 package net.jc.beeerp.module.field.type;
 
 import static org.junit.Assert.*;
-import net.jc.beeerp.it.module.testdata.TestEntity;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import net.jc.beeerp.module.testdata.TestEntity;
 
 public class FieldBoolTest {
 

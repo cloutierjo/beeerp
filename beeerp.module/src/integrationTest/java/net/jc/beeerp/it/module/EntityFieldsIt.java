@@ -5,8 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.jc.beeerp.it.module.testdata.TestEntity;
 import net.jc.beeerp.module.field.Field;
+import net.jc.beeerp.module.testdata.TestEntity;
+import net.jc.beeerp.module.testdata.TestEntityInvalid;
 
 @SuppressWarnings("deprecation")
 // TODO: remove when decision is taken
@@ -118,5 +119,10 @@ public class EntityFieldsIt {
 		entity.setDefaultValue();
 		assertEquals(25, entity.getFields().getData("id"));
 		assertTrue((Boolean) entity.getFields().getData("fieldBool"));
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void entityWithInvalidDataThrowException() throws Exception {
+		new TestEntityInvalid();
 	}
 }
