@@ -1,7 +1,5 @@
 package net.jc.beeerp.module;
 
-import javax.validation.ConstraintViolation;
-
 public class InputError {
 
 	private String message;
@@ -10,11 +8,6 @@ public class InputError {
 	public InputError() {
 		message = "";
 		invalidValue = "";
-	}
-
-	public InputError(ConstraintViolation<Entity> error) {
-		message = error.getMessage();
-		invalidValue = error.getInvalidValue().toString();
 	}
 
 	public InputError(String message, String invalidValue) {

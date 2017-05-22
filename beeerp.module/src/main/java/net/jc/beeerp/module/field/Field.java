@@ -74,7 +74,7 @@ public abstract class Field<T> {
 		if (!errors.isEmpty()) {
 			@SuppressWarnings("unchecked")
 			ConstraintViolation<Entity> violation = (ConstraintViolation<Entity>) errors.iterator().next();
-			error = new InputError(violation);
+			error = new InputError(violation.getMessage(), data.toString());
 			log.debug("validation err:{}", error);
 		}
 
