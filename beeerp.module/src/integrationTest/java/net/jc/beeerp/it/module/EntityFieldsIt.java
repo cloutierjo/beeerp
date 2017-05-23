@@ -9,8 +9,6 @@ import net.jc.beeerp.module.field.Field;
 import net.jc.beeerp.module.testdata.TestEntity;
 import net.jc.beeerp.module.testdata.TestEntityInvalid;
 
-@SuppressWarnings("deprecation")
-// TODO: remove when decision is taken
 public class EntityFieldsIt {
 
 	private static final Integer ID_TEST_VALUE = 345;
@@ -50,11 +48,11 @@ public class EntityFieldsIt {
 
 	@Test
 	public final void setValueFromEntityIsRetrivable() {
-		entity.setData("id", ID_TEST_VALUE);
+		entity.setId(ID_TEST_VALUE);
 		Field<?> field = entity.getFields().getField("id");
 		assertEquals(ID_TEST_VALUE, field.getData());
 		assertEquals(ID_TEST_VALUE, entity.getFields().getData("id"));
-		assertEquals(ID_TEST_VALUE, entity.getData("id"));
+		assertEquals(ID_TEST_VALUE, entity.getId());
 	}
 
 	@Test
@@ -63,7 +61,7 @@ public class EntityFieldsIt {
 		Field<?> field = entity.getFields().getField("id");
 		assertEquals(ID_TEST_VALUE, field.getData());
 		assertEquals(ID_TEST_VALUE, entity.getFields().getData("id"));
-		assertEquals(ID_TEST_VALUE, entity.getData("id"));
+		assertEquals(ID_TEST_VALUE, entity.getId());
 	}
 
 	@Test
@@ -72,16 +70,7 @@ public class EntityFieldsIt {
 		field.setData(ID_TEST_VALUE);
 		assertEquals(ID_TEST_VALUE, field.getData());
 		assertEquals(ID_TEST_VALUE, entity.getFields().getData("id"));
-		assertEquals(ID_TEST_VALUE, entity.getData("id"));
-	}
-
-	@Test
-	public final void setValueStringFromEntityIsRetrivable() {
-		entity.setDataString("id", ID_TEST_VALUE_STRING);
-		Field<?> field = entity.getFields().getField("id");
-		assertEquals(ID_TEST_VALUE, field.getData());
-		assertEquals(ID_TEST_VALUE, entity.getFields().getData("id"));
-		assertEquals(ID_TEST_VALUE, entity.getData("id"));
+		assertEquals(ID_TEST_VALUE, entity.getId());
 	}
 
 	@Test
@@ -90,7 +79,7 @@ public class EntityFieldsIt {
 		Field<?> field = entity.getFields().getField("id");
 		assertEquals(ID_TEST_VALUE, field.getData());
 		assertEquals(ID_TEST_VALUE, entity.getFields().getData("id"));
-		assertEquals(ID_TEST_VALUE, entity.getData("id"));
+		assertEquals(ID_TEST_VALUE, entity.getId());
 	}
 
 	@Test
@@ -99,7 +88,7 @@ public class EntityFieldsIt {
 		field.setDataString(ID_TEST_VALUE_STRING);
 		assertEquals(ID_TEST_VALUE, field.getData());
 		assertEquals(ID_TEST_VALUE, entity.getFields().getData("id"));
-		assertEquals(ID_TEST_VALUE, entity.getData("id"));
+		assertEquals(ID_TEST_VALUE, entity.getId());
 	}
 
 	@Test

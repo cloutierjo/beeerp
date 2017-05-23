@@ -1,7 +1,6 @@
 package net.jc.beeerp.module;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
@@ -10,26 +9,20 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import net.jc.beeerp.module.field.Field;
 import net.jc.beeerp.module.field.Fields;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EntityTest {
 
-	private static final int DATA_VALUE = 42;
 	private static final String TO_STRING_RETURN_VALUE = "thisData";
 
 	private Entity entity;
 
 	@Mock
 	private Fields fields;
-	@SuppressWarnings("rawtypes")
-	@Mock
-	private Field field;
 
 	@Before
 	public void setUp() throws Exception {
-		when(fields.getField(anyString())).thenReturn(field);
 		entity = new Entity(fields);
 	}
 
@@ -47,18 +40,6 @@ public class EntityTest {
 	public final void testToString() {
 		when(fields.toString()).thenReturn(TO_STRING_RETURN_VALUE);
 		assertEquals(TO_STRING_RETURN_VALUE, entity.toString());
-	}
-
-	@Test
-	public final void testGetData() {
-		when(fields.getData(anyString())).thenReturn(DATA_VALUE);
-		assertEquals(DATA_VALUE, entity.getData(anyString()));
-	}
-
-	@Test
-	public final void testSetData() {
-		entity.setData("", DATA_VALUE);
-		verify(fields).setData(anyString(), eq(DATA_VALUE));
 	}
 
 	@Test

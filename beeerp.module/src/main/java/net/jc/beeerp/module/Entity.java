@@ -101,58 +101,6 @@ public class Entity {
 		return fields.toString();
 	}
 
-	/**
-	 * Get the data from a specified field
-	 * 
-	 * @param fieldName The field name
-	 * @return The data from the specified field
-	 * @see net.jc.beeerp.module.field.Fields#getData(java.lang.String)
-	 * @deprecated The field getData method should be used directly
-	 */
-	@Deprecated
-	public Object getData(String fieldName) {
-		return fields.getData(fieldName);
-	}
-
-	/**
-	 * Get the data from a specified field in it's string format
-	 * 
-	 * @param fieldName The field name
-	 * @return The data from the specified field in it's string format
-	 * @see net.jc.beeerp.module.field.Fields#getDataString(java.lang.String)
-	 * @deprecated The field getDataString method should be used directly
-	 */
-	@Deprecated
-	public String getDataString(String fieldName) {
-		return fields.getDataString(fieldName);
-	}
-
-	/**
-	 * Set the data to the specified field
-	 * 
-	 * @param fieldName The field name
-	 * @param data the data to set
-	 * @see net.jc.beeerp.module.field.Fields#setData(java.lang.String, java.lang.Object)
-	 * @deprecated The field setData method should be used directly
-	 */
-	@Deprecated
-	public void setData(String fieldName, Object data) {
-		fields.setData(fieldName, data);
-	}
-
-	/**
-	 * Set the data to the specified field from it's string format
-	 * 
-	 * @param fieldName The field name
-	 * @param data the data to set from it's string format
-	 * @see net.jc.beeerp.module.field.Fields#setDataString(java.lang.String, java.lang.String)
-	 * @deprecated The field setDataString method should be used directly
-	 */
-	@Deprecated
-	public void setDataString(String fieldName, String data) {
-		fields.setDataString(fieldName, data);
-	}
-
 	public void setDefaultValue() {
 		// default implementation do nothing
 	}
